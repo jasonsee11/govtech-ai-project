@@ -1,6 +1,6 @@
 # Prompt chain
 
-**Scenario:** B · ICA passport applications
+**Scenario:** C · MOE Biology Assessment
 **Prototype today:** A clickable prototype to test whether teachers will trust and use AI-generated assessment questions.
 
 All data is synthetic and labelled as made up.
