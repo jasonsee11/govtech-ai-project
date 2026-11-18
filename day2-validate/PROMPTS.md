@@ -21,7 +21,17 @@ Preserve the existing prototype functionality and make the review process intuit
 - The question is scientifically accurate but outside the prescribed syllabus.
 - The curriculum reference is missing, incorrect or cannot be verified.
 
-**Result:** _fill in after you run it: what worked, what broke._
+**Result:**
+
+*What worked:*
+- Verification status badges (✓ Verified, ⚠ Unverified, ✗ Source missing) at top of each question
+- Expandable details panel showing curriculum source, rationale, and marking scheme
+- Inline editing — teachers can modify question text and answer without regenerating the entire assessment
+- Regenerate button on each question to replace one question while preserving others
+- Clickable curriculum reference expands the details panel
+
+*What broke:*
+- Edge case not yet handled: when curriculum reference is missing/incorrect, the UI shows it but doesn't offer a way to manually add or correct the reference
 
 ## 2. Behavior
 
@@ -39,7 +49,20 @@ Add a clickable forced-failure scenario to the Trust Lab to demonstrate this beh
 **Edge cases:**
 - The AI retrieves content from the wrong science strand or syllabus version.
 
-**Result:** _fill in after you run it: what worked, what broke._
+**Result:**
+
+*What worked:*
+- New "Failure Recovery" scenario button in Trust Lab (red border, "What happens when AI fails?")
+- Failure modal appears when regeneration fails, explaining what went wrong
+- Modal shows: what failed, what couldn't be verified, possible causes (KB unavailable, syllabus versions, science strand boundary)
+- Confirms "Your existing questions and edits are preserved"
+- Three recovery options: Retry, Edit Manually, Keep Original — all working
+- Edit Manually opens inline edit mode; Keep Original dismisses modal with confirmation banner
+- Teachers can continue working on other questions without interruption
+
+*What broke:*
+- Nothing broke — all features working as expected
+- Edge case (wrong science strand) is mentioned in possible causes but not yet simulated as a separate failure type
 
 ## 3. Refine
 
