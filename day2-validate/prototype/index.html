@@ -8,7 +8,7 @@
     * { box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      max-width: 640px;
+      max-width: 700px;
       margin: 0 auto;
       padding: 24px;
       background: #f5f5f5;
@@ -39,7 +39,7 @@
     .outcomes h3 { font-size: 0.95rem; margin: 0 0 12px 0; }
     .outcome-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 12px; }
     .outcome-item:last-child { margin-bottom: 0; }
-    .outcome-item input { margin-top: 4px; }
+    .outcome-item input[type="checkbox"] { margin-top: 4px; }
     .outcome-item span { font-size: 0.9rem; line-height: 1.4; }
     .hidden { display: none; }
     button {
@@ -57,6 +57,71 @@
     button:disabled { background: #ccc; cursor: not-allowed; }
     .hint { font-size: 0.85rem; color: #666; margin-top: 8px; }
 
+    /* Trust Lab styles */
+    .trust-lab {
+      background: #fefce8;
+      border: 1px solid #eab308;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    .trust-lab-header {
+      padding: 12px 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .trust-lab-header:hover { background: #fef9c3; border-radius: 8px; }
+    .trust-lab-toggle { font-size: 1.2rem; }
+    .trust-lab-content { padding: 0 16px 16px; display: none; }
+    .trust-lab-content.open { display: block; }
+    .trust-lab-label { font-size: 0.75rem; background: #eab308; color: white; padding: 2px 6px; border-radius: 3px; margin-left: 8px; }
+    .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .scenario-btn {
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: left;
+    }
+    .scenario-btn:hover { background: #f9fafb; border-color: #9ca3af; }
+    .scenario-btn.active { background: #fef3c7; border-color: #eab308; }
+    .scenario-btn strong { display: block; font-size: 0.8rem; margin-bottom: 2px; }
+    .scenario-btn span { font-size: 0.75rem; color: #666; }
+    .lab-options { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .lab-options label { display: flex; align-items: center; gap: 4px; font-weight: normal; font-size: 0.85rem; margin: 0; }
+    .lab-metrics {
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      padding: 12px;
+      font-size: 0.85rem;
+    }
+    .lab-metrics h4 { margin: 0 0 8px 0; font-size: 0.85rem; }
+    .metrics-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
+    .metric { display: flex; flex-direction: column; }
+    .metric-value { font-size: 1.1rem; font-weight: 600; }
+    .metric-label { font-size: 0.75rem; color: #666; }
+    .copy-btn {
+      width: auto;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      background: #6b7280;
+      margin-top: 8px;
+    }
+    .copy-btn:hover { background: #4b5563; }
+    .scenario-note {
+      background: #fef3c7;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
     /* Screen 2 styles */
     .screen { display: none; }
     .screen.active { display: block; }
@@ -69,12 +134,10 @@
       padding: 16px;
       margin-bottom: 16px;
     }
-    .question-card.flagged {
-      border-color: #f59e0b;
-      background: #fffbeb;
-    }
+    .question-card.flagged { border-color: #f59e0b; background: #fffbeb; }
     .question-card.decided-keep { border-color: #22c55e; background: #f0fdf4; }
     .question-card.decided-reject { border-color: #ef4444; background: #fef2f2; opacity: 0.7; }
+    .question-card.has-error { border-color: #ef4444; border-width: 2px; }
     .flag-banner {
       background: #fef3c7;
       border: 1px solid #f59e0b;
@@ -83,6 +146,15 @@
       font-size: 0.8rem;
       margin-bottom: 12px;
       color: #92400e;
+    }
+    .error-banner {
+      background: #fee2e2;
+      border: 1px solid #ef4444;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+      color: #991b1b;
     }
     .question-header {
       display: flex;
@@ -105,18 +177,17 @@
       margin-bottom: 12px;
       display: inline-block;
     }
+    .curriculum-ref.hidden-ref { display: none; }
     .action-buttons { display: flex; gap: 8px; }
-    .action-buttons button {
-      flex: 1;
-      padding: 10px;
-      font-size: 0.9rem;
-    }
+    .action-buttons button { flex: 1; padding: 10px; font-size: 0.9rem; }
     .btn-keep { background: #22c55e; }
     .btn-keep:hover { background: #16a34a; }
     .btn-edit { background: #f59e0b; }
     .btn-edit:hover { background: #d97706; }
     .btn-reject { background: #ef4444; }
     .btn-reject:hover { background: #dc2626; }
+    .btn-regen { background: #8b5cf6; margin-top: 8px; }
+    .btn-regen:hover { background: #7c3aed; }
     .decision-made { text-align: center; padding: 10px; font-weight: 600; font-size: 0.9rem; }
     .decision-made.kept { color: #16a34a; }
     .decision-made.rejected { color: #dc2626; }
@@ -129,15 +200,76 @@
     }
     .summary-box h3 { margin: 0 0 8px 0; font-size: 1rem; }
     .summary-stats { font-size: 0.9rem; }
-    .made-up-label {
-      font-size: 0.75rem;
-      color: #666;
-      font-style: italic;
-      margin-top: 4px;
-    }
+    .made-up-label { font-size: 0.75rem; color: #666; font-style: italic; margin-top: 4px; }
+    .confidence-survey { margin-top: 16px; padding-top: 16px; border-top: 1px solid #ccc; }
+    .confidence-survey label { font-weight: normal; font-size: 0.9rem; }
+    .confidence-buttons { display: flex; gap: 8px; margin-top: 8px; }
+    .confidence-buttons button { flex: 1; padding: 8px; font-size: 0.85rem; background: #e5e7eb; color: #333; }
+    .confidence-buttons button:hover { background: #d1d5db; }
+    .confidence-buttons button.selected { background: #0066cc; color: white; }
   </style>
 </head>
 <body>
+
+  <!-- Trust Lab Section -->
+  <div class="trust-lab">
+    <div class="trust-lab-header" onclick="toggleTrustLab()">
+      <span>🧪 Trust Lab <span class="trust-lab-label">For Testers</span></span>
+      <span class="trust-lab-toggle" id="lab-toggle">▼</span>
+    </div>
+    <div class="trust-lab-content" id="lab-content">
+      <p style="font-size: 0.85rem; margin: 0 0 12px 0; color: #666;">Click a scenario to auto-generate an assessment that demonstrates how we address each trust gap.</p>
+
+      <div class="scenario-grid">
+        <button class="scenario-btn" onclick="runScenario('blackbox')" id="btn-blackbox">
+          <strong>Black Box</strong>
+          <span>Why did AI pick these questions?</span>
+        </button>
+        <button class="scenario-btn" onclick="runScenario('hallucination')" id="btn-hallucination">
+          <strong>Hallucination</strong>
+          <span>Can you spot the errors?</span>
+        </button>
+        <button class="scenario-btn" onclick="runScenario('control')" id="btn-control">
+          <strong>Control</strong>
+          <span>Can you edit and regenerate?</span>
+        </button>
+        <button class="scenario-btn" onclick="runScenario('uncertainty')" id="btn-uncertainty">
+          <strong>AI Uncertainty</strong>
+          <span>How does AI flag doubt?</span>
+        </button>
+      </div>
+
+      <div id="scenario-note" class="scenario-note hidden"></div>
+
+      <div class="lab-options">
+        <label><input type="checkbox" id="show-refs" checked onchange="toggleRefs()"> Show curriculum references</label>
+        <label><input type="checkbox" id="show-errors" onchange="toggleErrors()"> Reveal planted errors</label>
+      </div>
+
+      <div class="lab-metrics">
+        <h4>Test Metrics (captured automatically)</h4>
+        <div class="metrics-row">
+          <div class="metric">
+            <span class="metric-value" id="metric-retention">-</span>
+            <span class="metric-label">Retention rate</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value" id="metric-errors">-</span>
+            <span class="metric-label">Errors caught</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value" id="metric-time">0s</span>
+            <span class="metric-label">Review time</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value" id="metric-confidence">-</span>
+            <span class="metric-label">Confidence</span>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="copyResults()">📋 Copy test results</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Screen 1: Topic and Learning Outcome Selection -->
   <div id="screen1" class="screen active">
@@ -176,7 +308,7 @@
 
     <div class="info-box">
       Review each question. Keep, edit, or reject based on your professional judgment.
-      <span class="made-up-label">All questions below are made up for testing purposes.</span>
+      <span class="made-up-label">All questions below are simulated for testing purposes.</span>
     </div>
 
     <div id="questions-container"></div>
@@ -184,13 +316,31 @@
     <div id="summary-box" class="summary-box hidden">
       <h3>Your Decisions</h3>
       <div class="summary-stats" id="summary-stats"></div>
+
+      <div class="confidence-survey">
+        <label>How confident are you that you could verify the accuracy of these questions?</label>
+        <div class="confidence-buttons">
+          <button onclick="setConfidence(1)">1 - Not at all</button>
+          <button onclick="setConfidence(2)">2</button>
+          <button onclick="setConfidence(3)">3</button>
+          <button onclick="setConfidence(4)">4</button>
+          <button onclick="setConfidence(5)">5 - Very confident</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    // Sample questions for "Cells and Organisation" topic (made up)
-    const sampleQuestions = {
-      cells: [
+    // Trust Lab state
+    let activeScenario = null;
+    let startTime = null;
+    let showRefsEnabled = true;
+    let revealErrors = false;
+    let teacherConfidence = null;
+
+    // Question sets for different scenarios (all made up / synthetic)
+    const questionSets = {
+      standard: [
         {
           id: 1,
           text: 'Describe two differences between animal cells and plant cells.',
@@ -236,7 +386,162 @@
           outcome: 'Explain the functions of cell organelles',
           flagged: false,
           hasError: true,
-          errorNote: '(This question contains a subtle error for testing — the answer is correct but the question stem is misleading and may confuse students.)'
+          errorNote: 'PLANTED ERROR: Question stem is misleading — says "storing proteins" but the answer corrects this. A well-written true/false should not have a false premise in a "true" statement context.'
+        }
+      ],
+      blackbox: [
+        {
+          id: 1,
+          text: 'State the function of the cell membrane in an animal cell.',
+          answer: 'The cell membrane controls what enters and leaves the cell, acting as a selective barrier.',
+          marks: 2,
+          outcome: 'Explain the functions of cell organelles',
+          flagged: false,
+          hasError: false,
+          reasoning: 'Selected because: Directly tests LO "Explain functions of cell organelles" at recall level (2 marks).'
+        },
+        {
+          id: 2,
+          text: 'Compare the vacuoles in plant cells and animal cells.',
+          answer: 'Plant cells have a large central vacuole for storage and maintaining turgor pressure. Animal cells have smaller vacuoles or none at all.',
+          marks: 3,
+          outcome: 'Describe the structure of animal and plant cells',
+          flagged: false,
+          hasError: false,
+          reasoning: 'Selected because: Tests comparison skill within LO "Describe structure of animal and plant cells".'
+        },
+        {
+          id: 3,
+          text: 'Explain why plant cells need chloroplasts but animal cells do not.',
+          answer: 'Plant cells need chloroplasts to carry out photosynthesis and make their own food. Animal cells obtain food by eating other organisms, so they do not need chloroplasts.',
+          marks: 3,
+          outcome: 'Explain the functions of cell organelles',
+          flagged: true,
+          flagReason: 'Uncertain: Requires understanding of photosynthesis (separate topic). May be at edge of scope.',
+          hasError: false,
+          reasoning: 'Selected because: Tests explanation of organelle function, but flagged as it touches on photosynthesis topic.'
+        }
+      ],
+      hallucination: [
+        {
+          id: 1,
+          text: 'Name the organelle responsible for producing energy in the cell.',
+          answer: 'Mitochondria',
+          marks: 1,
+          outcome: 'Explain the functions of cell organelles',
+          flagged: false,
+          hasError: false
+        },
+        {
+          id: 2,
+          text: 'The cell wall in plant cells is made of cellulose and provides rigid support.',
+          answer: 'True. The cell wall is composed of cellulose and gives plant cells their fixed, rectangular shape.',
+          marks: 1,
+          outcome: 'Describe the structure of animal and plant cells',
+          flagged: false,
+          hasError: false
+        },
+        {
+          id: 3,
+          text: 'Explain how the Golgi apparatus packages proteins for transport within the cell.',
+          answer: 'The Golgi apparatus receives proteins from the endoplasmic reticulum, modifies them, and packages them into vesicles for transport.',
+          marks: 3,
+          outcome: 'Explain the functions of cell organelles',
+          flagged: false,
+          hasError: true,
+          errorNote: 'PLANTED ERROR: Golgi apparatus is NOT in the lower secondary syllabus. This content exceeds curriculum scope and should have been flagged.'
+        },
+        {
+          id: 4,
+          text: 'Animal cells have a cell membrane but no cell wall. Explain one advantage of this.',
+          answer: 'Without a rigid cell wall, animal cells can change shape, which allows them to move and engulf food particles.',
+          marks: 2,
+          outcome: 'Describe the structure of animal and plant cells',
+          flagged: false,
+          hasError: false
+        },
+        {
+          id: 5,
+          text: 'Ribosomes are found floating in the cytoplasm or attached to the smooth endoplasmic reticulum.',
+          answer: 'False. Ribosomes are attached to the rough endoplasmic reticulum, not the smooth endoplasmic reticulum.',
+          marks: 1,
+          outcome: 'Explain the functions of cell organelles',
+          flagged: false,
+          hasError: true,
+          errorNote: 'PLANTED ERROR: Endoplasmic reticulum (smooth or rough) is NOT in the lower secondary syllabus. Students have not learned this terminology.'
+        }
+      ],
+      control: [
+        {
+          id: 1,
+          text: 'List three organelles found in both plant and animal cells.',
+          answer: 'Nucleus, mitochondria, cell membrane (accept: cytoplasm, ribosomes)',
+          marks: 3,
+          outcome: 'Describe the structure of animal and plant cells',
+          flagged: false,
+          hasError: false,
+          editable: true
+        },
+        {
+          id: 2,
+          text: 'Explain why the nucleus is important for cell function.',
+          answer: 'The nucleus contains DNA which carries genetic instructions. It controls cell activities by directing protein synthesis.',
+          marks: 3,
+          outcome: 'Explain the functions of cell organelles',
+          flagged: false,
+          hasError: false,
+          editable: true
+        },
+        {
+          id: 3,
+          text: 'A plant cell is placed in pure water. Describe what happens to the cell and explain why.',
+          answer: 'Water enters the cell by osmosis from high to low water concentration. The cell swells but does not burst because the cell wall provides support.',
+          marks: 4,
+          outcome: 'Describe the structure of animal and plant cells',
+          flagged: true,
+          flagReason: 'This question involves osmosis which may not be in the selected learning outcomes.',
+          hasError: false,
+          editable: true
+        }
+      ],
+      uncertainty: [
+        {
+          id: 1,
+          text: 'State two functions of the cell membrane.',
+          answer: 'Controls entry/exit of substances; protects the cell contents.',
+          marks: 2,
+          outcome: 'Explain the functions of cell organelles',
+          flagged: false,
+          hasError: false
+        },
+        {
+          id: 2,
+          text: 'Explain why cells are considered the basic unit of life.',
+          answer: 'Cells are the smallest structures that can carry out all life processes independently. All living things are made of one or more cells.',
+          marks: 3,
+          outcome: 'Compare unicellular and multicellular organisms',
+          flagged: true,
+          flagReason: '⚠️ UNCERTAIN: This is a conceptual question. The phrasing "basic unit of life" appears in textbooks but may not be explicitly stated in the syllabus learning outcomes. Verify with curriculum document.',
+          hasError: false
+        },
+        {
+          id: 3,
+          text: 'Compare how unicellular and multicellular organisms obtain nutrients.',
+          answer: 'Unicellular organisms absorb nutrients directly through their cell membrane. Multicellular organisms have specialized organs (digestive system) to break down and distribute nutrients.',
+          marks: 4,
+          outcome: 'Compare unicellular and multicellular organisms',
+          flagged: true,
+          flagReason: '⚠️ UNCERTAIN: Reference to "digestive system" may require knowledge from human biology topic not yet covered. Consider simplifying or checking curriculum sequence.',
+          hasError: false
+        },
+        {
+          id: 4,
+          text: 'Name the organelle that contains chlorophyll in plant cells.',
+          answer: 'Chloroplast',
+          marks: 1,
+          outcome: 'Describe the structure of animal and plant cells',
+          flagged: false,
+          hasError: false
         }
       ]
     };
@@ -260,22 +565,149 @@
     };
 
     const decisions = {};
+    let currentQuestions = [];
 
-    // Screen 1 elements
+    // DOM elements
     const screen1 = document.getElementById('screen1');
     const screen2 = document.getElementById('screen2');
     const topicSelect = document.getElementById('topic');
     const outcomesSection = document.getElementById('outcomes-section');
     const outcomesList = document.getElementById('outcomes-list');
     const generateBtn = document.getElementById('generate-btn');
-
-    // Screen 2 elements
     const backBtn = document.getElementById('back-btn');
     const selectedTopicDisplay = document.getElementById('selected-topic-display');
     const questionsContainer = document.getElementById('questions-container');
     const summaryBox = document.getElementById('summary-box');
     const summaryStats = document.getElementById('summary-stats');
 
+    // Trust Lab functions
+    function toggleTrustLab() {
+      const content = document.getElementById('lab-content');
+      const toggle = document.getElementById('lab-toggle');
+      if (content.classList.contains('open')) {
+        content.classList.remove('open');
+        toggle.textContent = '▼';
+      } else {
+        content.classList.add('open');
+        toggle.textContent = '▲';
+      }
+    }
+
+    function runScenario(scenario) {
+      // Update active button
+      document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-' + scenario).classList.add('active');
+
+      activeScenario = scenario;
+
+      // Show scenario note
+      const noteEl = document.getElementById('scenario-note');
+      const notes = {
+        blackbox: '<strong>Black Box scenario:</strong> Each question shows WHY it was selected, linking to the learning outcome and cognitive demand. This helps teachers understand AI reasoning.',
+        hallucination: '<strong>Hallucination scenario:</strong> Contains 2 planted errors (out-of-scope content). Can you spot them? Toggle "Reveal planted errors" to check.',
+        control: '<strong>Control scenario:</strong> Try editing questions or clicking Regenerate. Teachers retain full control over the final assessment.',
+        uncertainty: '<strong>AI Uncertainty scenario:</strong> Notice the flagged questions with detailed explanations. The AI explicitly states what it\'s uncertain about.'
+      };
+      noteEl.innerHTML = notes[scenario];
+      noteEl.classList.remove('hidden');
+
+      // Auto-populate topic and outcomes
+      topicSelect.value = 'cells';
+      topicSelect.dispatchEvent(new Event('change'));
+
+      setTimeout(() => {
+        document.querySelectorAll('input[name="outcome"]').forEach(cb => cb.checked = true);
+        updateButton();
+
+        // Auto-generate
+        currentQuestions = questionSets[scenario] || questionSets.standard;
+        showScreen2('Cells and Organisation', scenario);
+      }, 100);
+    }
+
+    function toggleRefs() {
+      showRefsEnabled = document.getElementById('show-refs').checked;
+      document.querySelectorAll('.curriculum-ref').forEach(el => {
+        el.classList.toggle('hidden-ref', !showRefsEnabled);
+      });
+    }
+
+    function toggleErrors() {
+      revealErrors = document.getElementById('show-errors').checked;
+      document.querySelectorAll('.error-banner').forEach(el => {
+        el.style.display = revealErrors ? 'block' : 'none';
+      });
+    }
+
+    function updateMetrics() {
+      const total = currentQuestions.length;
+      const kept = Object.values(decisions).filter(d => d === 'keep').length;
+      const edited = Object.values(decisions).filter(d => d === 'edit').length;
+      const rejected = Object.values(decisions).filter(d => d === 'reject').length;
+      const decided = kept + edited + rejected;
+
+      // Retention rate
+      if (decided > 0) {
+        const retention = Math.round(((kept + edited) / decided) * 100);
+        document.getElementById('metric-retention').textContent = retention + '%';
+      }
+
+      // Errors caught (count rejected questions that have errors)
+      const errorQuestions = currentQuestions.filter(q => q.hasError);
+      const caughtErrors = errorQuestions.filter(q => decisions[q.id] === 'reject').length;
+      document.getElementById('metric-errors').textContent = caughtErrors + '/' + errorQuestions.length;
+
+      // Time
+      if (startTime) {
+        const elapsed = Math.round((Date.now() - startTime) / 1000);
+        document.getElementById('metric-time').textContent = elapsed + 's';
+      }
+
+      // Confidence
+      if (teacherConfidence) {
+        document.getElementById('metric-confidence').textContent = teacherConfidence + '/5';
+      }
+    }
+
+    function setConfidence(level) {
+      teacherConfidence = level;
+      document.querySelectorAll('.confidence-buttons button').forEach((btn, i) => {
+        btn.classList.toggle('selected', i + 1 === level);
+      });
+      updateMetrics();
+    }
+
+    function copyResults() {
+      const total = currentQuestions.length;
+      const kept = Object.values(decisions).filter(d => d === 'keep').length;
+      const edited = Object.values(decisions).filter(d => d === 'edit').length;
+      const rejected = Object.values(decisions).filter(d => d === 'reject').length;
+      const errorQuestions = currentQuestions.filter(q => q.hasError);
+      const caughtErrors = errorQuestions.filter(q => decisions[q.id] === 'reject').length;
+      const elapsed = startTime ? Math.round((Date.now() - startTime) / 1000) : 0;
+
+      const results = `Trust Lab Test Results
+=======================
+Scenario: ${activeScenario || 'standard'}
+Date: ${new Date().toISOString().split('T')[0]}
+
+Metrics:
+- Questions reviewed: ${total}
+- Kept: ${kept}, Edited: ${edited}, Rejected: ${rejected}
+- Retention rate: ${total > 0 ? Math.round(((kept + edited) / total) * 100) : 0}%
+- Errors caught: ${caughtErrors}/${errorQuestions.length}
+- Review time: ${elapsed}s
+- Teacher confidence: ${teacherConfidence || 'not recorded'}/5
+- Curriculum refs shown: ${showRefsEnabled ? 'yes' : 'no'}
+
+(Synthetic test data - Biology Assessment Generator prototype)`;
+
+      navigator.clipboard.writeText(results).then(() => {
+        alert('Test results copied to clipboard!');
+      });
+    }
+
+    // Screen 1 functions
     topicSelect.addEventListener('change', () => {
       const topic = topicSelect.value;
       if (!topic) {
@@ -305,37 +737,44 @@
       const topic = topicSelect.value;
       const topicName = topicSelect.options[topicSelect.selectedIndex].text;
 
-      // Only cells topic has sample questions for now
       if (topic !== 'cells') {
         alert('Sample questions are only available for "Cells and Organisation" in this prototype.');
         return;
       }
 
-      showScreen2(topicName);
+      currentQuestions = questionSets.standard;
+      showScreen2(topicName, null);
     });
 
     backBtn.addEventListener('click', () => {
       screen1.classList.add('active');
       screen2.classList.remove('active');
+      activeScenario = null;
+      document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('scenario-note').classList.add('hidden');
     });
 
-    function showScreen2(topicName) {
+    function showScreen2(topicName, scenario) {
       screen1.classList.remove('active');
       screen2.classList.add('active');
       selectedTopicDisplay.textContent = topicName;
 
-      // Reset decisions
+      // Reset state
       Object.keys(decisions).forEach(k => delete decisions[k]);
+      teacherConfidence = null;
+      startTime = Date.now();
 
       renderQuestions();
       updateSummary();
+      updateMetrics();
     }
 
     function renderQuestions() {
-      const questions = sampleQuestions.cells;
-      questionsContainer.innerHTML = questions.map(q => `
-        <div class="question-card ${q.flagged ? 'flagged' : ''}" id="card-${q.id}" data-id="${q.id}">
+      questionsContainer.innerHTML = currentQuestions.map(q => `
+        <div class="question-card ${q.flagged ? 'flagged' : ''} ${q.hasError && revealErrors ? 'has-error' : ''}" id="card-${q.id}" data-id="${q.id}">
+          ${q.hasError ? `<div class="error-banner" style="display: ${revealErrors ? 'block' : 'none'}">🚨 ${q.errorNote}</div>` : ''}
           ${q.flagged ? `<div class="flag-banner">⚠️ ${q.flagReason}</div>` : ''}
+          ${q.reasoning ? `<div class="flag-banner" style="background: #e0f2fe; border-color: #0284c7; color: #0c4a6e;">💡 ${q.reasoning}</div>` : ''}
           <div class="question-header">
             <span class="question-number">Question ${q.id}</span>
             <span class="question-marks">${q.marks} marks</span>
@@ -345,13 +784,13 @@
             <strong>Suggested answer:</strong>
             <p>${q.answer}</p>
           </div>
-          <div class="curriculum-ref">📚 ${q.outcome}</div>
-          ${q.hasError ? `<div class="made-up-label">${q.errorNote}</div>` : ''}
+          <div class="curriculum-ref ${showRefsEnabled ? '' : 'hidden-ref'}">📚 ${q.outcome}</div>
           <div class="action-buttons" id="actions-${q.id}">
             <button class="btn-keep" onclick="decide(${q.id}, 'keep')">Keep</button>
             <button class="btn-edit" onclick="decide(${q.id}, 'edit')">Edit</button>
             <button class="btn-reject" onclick="decide(${q.id}, 'reject')">Reject</button>
           </div>
+          ${q.editable || activeScenario === 'control' ? `<button class="btn-regen" onclick="regenerate(${q.id})">🔄 Regenerate this question</button>` : ''}
         </div>
       `).join('');
     }
@@ -371,14 +810,25 @@
         card.classList.add('decided-reject');
         actions.innerHTML = `<div class="decision-made rejected">✗ Rejected</div>`;
       } else if (decision === 'edit') {
-        actions.innerHTML = `<div class="decision-made" style="color: #d97706;">✎ Will edit (prototype only shows decision)</div>`;
+        actions.innerHTML = `<div class="decision-made" style="color: #d97706;">✎ Will edit</div>`;
       }
 
       updateSummary();
+      updateMetrics();
+    }
+
+    function regenerate(questionId) {
+      const card = document.getElementById(`card-${questionId}`);
+      card.style.opacity = '0.5';
+
+      setTimeout(() => {
+        card.style.opacity = '1';
+        alert('Regenerate simulated. In the full product, this would generate a new question for the same learning outcome.');
+      }, 500);
     }
 
     function updateSummary() {
-      const total = sampleQuestions.cells.length;
+      const total = currentQuestions.length;
       const kept = Object.values(decisions).filter(d => d === 'keep').length;
       const edited = Object.values(decisions).filter(d => d === 'edit').length;
       const rejected = Object.values(decisions).filter(d => d === 'reject').length;
@@ -396,6 +846,14 @@
         summaryBox.classList.add('hidden');
       }
     }
+
+    // Update timer every second
+    setInterval(() => {
+      if (startTime && screen2.classList.contains('active')) {
+        const elapsed = Math.round((Date.now() - startTime) / 1000);
+        document.getElementById('metric-time').textContent = elapsed + 's';
+      }
+    }, 1000);
   </script>
 </body>
 </html>
