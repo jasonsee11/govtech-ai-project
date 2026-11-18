@@ -6,6 +6,15 @@ Use case: [your chosen scenario (A, B, or C), written with synthetic data only]
 ## Opportunity and evidence
 ## Experience and trust
 ## Risks (market, technical, team)
+
+**Market risk:** Teachers won't change their workflow even if the tool works — they prefer their existing resources and methods.
+- *How we test:* Measure voluntary repeat usage after first session. Kill if fewer than 50% of teachers return to use the tool a second time.
+
+**Technical risk:** AI generates scientifically inaccurate or curriculum-misaligned content that teachers do not catch.
+- *How we test:* Include deliberately flawed questions in prototype testing. Kill if teachers fail to catch more than 5% of planted errors, or if more than 30% of AI-generated questions contain inaccuracies requiring major correction.
+
+**Team risk:** No curriculum specialist available to maintain and verify the knowledge base as the syllabus evolves.
+- *How we test:* Identify a named curriculum owner before pilot launch. Kill if no owner commits to quarterly reviews of the knowledge base.
 ## Build plan and handoff
 ## Agent role and guardrails
 ## Roles and operating model
