@@ -860,6 +860,7 @@
     const decisions = {};
     const editedQuestions = {};
     let currentQuestions = [];
+    let timerInterval = null;
 
     // DOM elements
     const screen1 = document.getElementById('screen1');
@@ -1036,6 +1037,10 @@ Metrics:
     });
 
     backBtn.addEventListener('click', () => {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
       screen1.classList.add('active');
       screen2.classList.remove('active');
       activeScenario = null;
@@ -1044,6 +1049,11 @@ Metrics:
     });
 
     function showScreen2(topicName, scenario) {
+      if (!topicName || !currentQuestions.length) {
+        console.warn('showScreen2 called without topic or questions');
+        return;
+      }
+
       screen1.classList.remove('active');
       screen2.classList.add('active');
       selectedTopicDisplay.textContent = topicName;
@@ -1052,6 +1062,14 @@ Metrics:
       Object.keys(editedQuestions).forEach(k => delete editedQuestions[k]);
       teacherConfidence = null;
       startTime = Date.now();
+
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (startTime && screen2.classList.contains('active')) {
+          const elapsed = Math.round((Date.now() - startTime) / 1000);
+          document.getElementById('metric-time').textContent = elapsed + 's';
+        }
+      }, 1000);
 
       renderQuestions();
       updateSummary();
@@ -1318,13 +1336,6 @@ Metrics:
         summaryBox.classList.add('hidden');
       }
     }
-
-    setInterval(() => {
-      if (startTime && screen2.classList.contains('active')) {
-        const elapsed = Math.round((Date.now() - startTime) / 1000);
-        document.getElementById('metric-time').textContent = elapsed + 's';
-      }
-    }, 1000);
   </script>
 </body>
 </html>
