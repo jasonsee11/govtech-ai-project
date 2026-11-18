@@ -16,12 +16,13 @@
     }
     h1 { font-size: 1.5rem; margin-bottom: 8px; }
     .subtitle { color: #666; font-size: 0.9rem; margin-bottom: 24px; }
-    .made-up {
-      background: #fff3cd;
-      border: 1px solid #ffc107;
+    .info-box {
+      background: #e8f4fc;
+      border: 1px solid #0066cc;
       border-radius: 4px;
-      padding: 8px 12px;
+      padding: 12px 16px;
       font-size: 0.85rem;
+      line-height: 1.5;
       margin-bottom: 24px;
     }
     label { display: block; font-weight: 600; margin-bottom: 8px; }
@@ -61,14 +62,17 @@
   <h1>Biology Assessment Generator</h1>
   <p class="subtitle">Scenario C · MOE Lower Secondary Biology</p>
 
-  <div class="made-up">All topics and learning outcomes below are synthetic and labelled as made up.</div>
+  <div class="info-box">
+    <strong>What this is:</strong> A prototype to test whether AI-generated questions help teachers prepare assessments faster.<br>
+    <strong>What this isn't:</strong> A finished product. Content is for testing only — not for use with students.
+  </div>
 
   <label for="topic">Select a biology topic</label>
   <select id="topic">
     <option value="">Choose a topic...</option>
-    <option value="cells">Cells and Organisation (made up)</option>
-    <option value="transport">Transport in Living Things (made up)</option>
-    <option value="reproduction">Reproduction in Plants (made up)</option>
+    <option value="cells">Cells and Organisation</option>
+    <option value="transport">Transport in Living Things</option>
+    <option value="reproduction">Reproduction in Plants</option>
   </select>
 
   <div id="outcomes-section" class="hidden">
@@ -84,19 +88,19 @@
   <script>
     const outcomesByTopic = {
       cells: [
-        { id: 'c1', text: 'Describe the structure of animal and plant cells (made up)' },
-        { id: 'c2', text: 'Explain the functions of cell organelles (made up)' },
-        { id: 'c3', text: 'Compare unicellular and multicellular organisms (made up)' }
+        { id: 'c1', text: 'Describe the structure of animal and plant cells' },
+        { id: 'c2', text: 'Explain the functions of cell organelles' },
+        { id: 'c3', text: 'Compare unicellular and multicellular organisms' }
       ],
       transport: [
-        { id: 't1', text: 'Explain diffusion and its importance in living organisms (made up)' },
-        { id: 't2', text: 'Describe osmosis in plant and animal cells (made up)' },
-        { id: 't3', text: 'Explain how substances are transported in the human circulatory system (made up)' }
+        { id: 't1', text: 'Explain diffusion and its importance in living organisms' },
+        { id: 't2', text: 'Describe osmosis in plant and animal cells' },
+        { id: 't3', text: 'Explain how substances are transported in the human circulatory system' }
       ],
       reproduction: [
-        { id: 'r1', text: 'Identify the parts of a flower and their functions (made up)' },
-        { id: 'r2', text: 'Describe the process of pollination (made up)' },
-        { id: 'r3', text: 'Explain seed dispersal methods and their advantages (made up)' }
+        { id: 'r1', text: 'Identify the parts of a flower and their functions' },
+        { id: 'r2', text: 'Describe the process of pollination' },
+        { id: 'r3', text: 'Explain seed dispersal methods and their advantages' }
       ]
     };
 
