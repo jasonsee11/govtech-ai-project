@@ -8,7 +8,7 @@
     * { box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      max-width: 600px;
+      max-width: 640px;
       margin: 0 auto;
       padding: 24px;
       background: #f5f5f5;
@@ -56,36 +56,191 @@
     button:hover { background: #0052a3; }
     button:disabled { background: #ccc; cursor: not-allowed; }
     .hint { font-size: 0.85rem; color: #666; margin-top: 8px; }
+
+    /* Screen 2 styles */
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .back-link { color: #0066cc; cursor: pointer; font-size: 0.9rem; margin-bottom: 16px; display: inline-block; }
+    .back-link:hover { text-decoration: underline; }
+    .question-card {
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .question-card.flagged {
+      border-color: #f59e0b;
+      background: #fffbeb;
+    }
+    .question-card.decided-keep { border-color: #22c55e; background: #f0fdf4; }
+    .question-card.decided-reject { border-color: #ef4444; background: #fef2f2; opacity: 0.7; }
+    .flag-banner {
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+      color: #92400e;
+    }
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .question-number { font-weight: 600; color: #666; font-size: 0.85rem; }
+    .question-marks { font-size: 0.85rem; color: #666; }
+    .question-text { font-size: 1rem; line-height: 1.5; margin-bottom: 12px; }
+    .question-answer { background: #f9fafb; border-radius: 4px; padding: 12px; margin-bottom: 12px; }
+    .question-answer strong { font-size: 0.85rem; color: #666; }
+    .question-answer p { margin: 4px 0 0 0; font-size: 0.9rem; }
+    .curriculum-ref {
+      font-size: 0.8rem;
+      color: #0066cc;
+      background: #e8f4fc;
+      padding: 6px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .action-buttons { display: flex; gap: 8px; }
+    .action-buttons button {
+      flex: 1;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+    .btn-keep { background: #22c55e; }
+    .btn-keep:hover { background: #16a34a; }
+    .btn-edit { background: #f59e0b; }
+    .btn-edit:hover { background: #d97706; }
+    .btn-reject { background: #ef4444; }
+    .btn-reject:hover { background: #dc2626; }
+    .decision-made { text-align: center; padding: 10px; font-weight: 600; font-size: 0.9rem; }
+    .decision-made.kept { color: #16a34a; }
+    .decision-made.rejected { color: #dc2626; }
+    .summary-box {
+      background: #e8f4fc;
+      border: 1px solid #0066cc;
+      border-radius: 4px;
+      padding: 16px;
+      margin-top: 24px;
+    }
+    .summary-box h3 { margin: 0 0 8px 0; font-size: 1rem; }
+    .summary-stats { font-size: 0.9rem; }
+    .made-up-label {
+      font-size: 0.75rem;
+      color: #666;
+      font-style: italic;
+      margin-top: 4px;
+    }
   </style>
 </head>
 <body>
-  <h1>Biology Assessment Generator</h1>
-  <p class="subtitle">Scenario C · MOE Lower Secondary Biology</p>
 
-  <div class="info-box">
-    <strong>What this is:</strong> A tool to help you generate curriculum-aligned assessment questions faster.<br>
-    <strong>What this isn't:</strong> A replacement for your judgment. You review, edit, and approve all content before use.
+  <!-- Screen 1: Topic and Learning Outcome Selection -->
+  <div id="screen1" class="screen active">
+    <h1>Biology Assessment Generator</h1>
+    <p class="subtitle">Scenario C · MOE Lower Secondary Biology</p>
+
+    <div class="info-box">
+      <strong>What this is:</strong> A tool to help you generate curriculum-aligned assessment questions faster.<br>
+      <strong>What this isn't:</strong> A replacement for your judgment. You review, edit, and approve all content before use.
+    </div>
+
+    <label for="topic">Select a biology topic</label>
+    <select id="topic">
+      <option value="">Choose a topic...</option>
+      <option value="cells">Cells and Organisation</option>
+      <option value="transport">Transport in Living Things</option>
+      <option value="reproduction">Reproduction in Plants</option>
+    </select>
+
+    <div id="outcomes-section" class="hidden">
+      <div class="outcomes">
+        <h3>Select 1–3 learning outcomes</h3>
+        <div id="outcomes-list"></div>
+      </div>
+    </div>
+
+    <button id="generate-btn" disabled>Generate Assessment Questions</button>
+    <p class="hint">Select a topic and at least one learning outcome to continue.</p>
   </div>
 
-  <label for="topic">Select a biology topic</label>
-  <select id="topic">
-    <option value="">Choose a topic...</option>
-    <option value="cells">Cells and Organisation</option>
-    <option value="transport">Transport in Living Things</option>
-    <option value="reproduction">Reproduction in Plants</option>
-  </select>
+  <!-- Screen 2: Review Generated Questions -->
+  <div id="screen2" class="screen">
+    <span class="back-link" id="back-btn">← Back to topic selection</span>
+    <h1>Review Generated Questions</h1>
+    <p class="subtitle" id="selected-topic-display"></p>
 
-  <div id="outcomes-section" class="hidden">
-    <div class="outcomes">
-      <h3>Select 1–3 learning outcomes</h3>
-      <div id="outcomes-list"></div>
+    <div class="info-box">
+      Review each question. Keep, edit, or reject based on your professional judgment.
+      <span class="made-up-label">All questions below are made up for testing purposes.</span>
+    </div>
+
+    <div id="questions-container"></div>
+
+    <div id="summary-box" class="summary-box hidden">
+      <h3>Your Decisions</h3>
+      <div class="summary-stats" id="summary-stats"></div>
     </div>
   </div>
 
-  <button id="generate-btn" disabled>Generate Assessment Questions</button>
-  <p class="hint">Select a topic and at least one learning outcome to continue.</p>
-
   <script>
+    // Sample questions for "Cells and Organisation" topic (made up)
+    const sampleQuestions = {
+      cells: [
+        {
+          id: 1,
+          text: 'Describe two differences between animal cells and plant cells.',
+          answer: 'Plant cells have a cell wall and chloroplasts; animal cells do not. Plant cells have a large central vacuole; animal cells have small or no vacuoles.',
+          marks: 4,
+          outcome: 'Describe the structure of animal and plant cells',
+          flagged: false,
+          hasError: false
+        },
+        {
+          id: 2,
+          text: 'Explain why the mitochondria is called the "powerhouse" of the cell.',
+          answer: 'The mitochondria carries out cellular respiration, converting glucose and oxygen into ATP (energy) that the cell uses for its activities.',
+          marks: 3,
+          outcome: 'Explain the functions of cell organelles',
+          flagged: false,
+          hasError: false
+        },
+        {
+          id: 3,
+          text: 'A student observes a cell under a microscope and sees a nucleus, cell membrane, and chloroplasts. Is this an animal or plant cell? Explain your reasoning.',
+          answer: 'This is a plant cell because it contains chloroplasts. Animal cells do not have chloroplasts as they cannot carry out photosynthesis.',
+          marks: 3,
+          outcome: 'Describe the structure of animal and plant cells',
+          flagged: true,
+          flagReason: 'Uncertain curriculum alignment — this question may require knowledge of photosynthesis not yet covered.',
+          hasError: false
+        },
+        {
+          id: 4,
+          text: 'Explain why unicellular organisms like the amoeba need a cell membrane but not a circulatory system.',
+          answer: 'Unicellular organisms are small enough that nutrients and gases can diffuse directly across the cell membrane to reach all parts of the cell. Multicellular organisms need circulatory systems because diffusion alone is too slow over larger distances.',
+          marks: 4,
+          outcome: 'Compare unicellular and multicellular organisms',
+          flagged: false,
+          hasError: false
+        },
+        {
+          id: 5,
+          text: 'The nucleus controls cell activities by storing proteins.',
+          answer: 'False. The nucleus stores genetic information (DNA), not proteins. DNA provides instructions for making proteins, which are produced by ribosomes.',
+          marks: 2,
+          outcome: 'Explain the functions of cell organelles',
+          flagged: false,
+          hasError: true,
+          errorNote: '(This question contains a subtle error for testing — the answer is correct but the question stem is misleading and may confuse students.)'
+        }
+      ]
+    };
+
     const outcomesByTopic = {
       cells: [
         { id: 'c1', text: 'Describe the structure of animal and plant cells' },
@@ -104,10 +259,22 @@
       ]
     };
 
+    const decisions = {};
+
+    // Screen 1 elements
+    const screen1 = document.getElementById('screen1');
+    const screen2 = document.getElementById('screen2');
     const topicSelect = document.getElementById('topic');
     const outcomesSection = document.getElementById('outcomes-section');
     const outcomesList = document.getElementById('outcomes-list');
     const generateBtn = document.getElementById('generate-btn');
+
+    // Screen 2 elements
+    const backBtn = document.getElementById('back-btn');
+    const selectedTopicDisplay = document.getElementById('selected-topic-display');
+    const questionsContainer = document.getElementById('questions-container');
+    const summaryBox = document.getElementById('summary-box');
+    const summaryStats = document.getElementById('summary-stats');
 
     topicSelect.addEventListener('change', () => {
       const topic = topicSelect.value;
@@ -135,11 +302,100 @@
     }
 
     generateBtn.addEventListener('click', () => {
-      const topic = topicSelect.options[topicSelect.selectedIndex].text;
-      const selected = Array.from(document.querySelectorAll('input[name="outcome"]:checked'))
-        .map(cb => cb.parentElement.querySelector('span').textContent.trim());
-      alert('Screen 2 not built yet.\n\nYou selected:\nTopic: ' + topic + '\n\nLearning outcomes:\n• ' + selected.join('\n• '));
+      const topic = topicSelect.value;
+      const topicName = topicSelect.options[topicSelect.selectedIndex].text;
+
+      // Only cells topic has sample questions for now
+      if (topic !== 'cells') {
+        alert('Sample questions are only available for "Cells and Organisation" in this prototype.');
+        return;
+      }
+
+      showScreen2(topicName);
     });
+
+    backBtn.addEventListener('click', () => {
+      screen1.classList.add('active');
+      screen2.classList.remove('active');
+    });
+
+    function showScreen2(topicName) {
+      screen1.classList.remove('active');
+      screen2.classList.add('active');
+      selectedTopicDisplay.textContent = topicName;
+
+      // Reset decisions
+      Object.keys(decisions).forEach(k => delete decisions[k]);
+
+      renderQuestions();
+      updateSummary();
+    }
+
+    function renderQuestions() {
+      const questions = sampleQuestions.cells;
+      questionsContainer.innerHTML = questions.map(q => `
+        <div class="question-card ${q.flagged ? 'flagged' : ''}" id="card-${q.id}" data-id="${q.id}">
+          ${q.flagged ? `<div class="flag-banner">⚠️ ${q.flagReason}</div>` : ''}
+          <div class="question-header">
+            <span class="question-number">Question ${q.id}</span>
+            <span class="question-marks">${q.marks} marks</span>
+          </div>
+          <div class="question-text">${q.text}</div>
+          <div class="question-answer">
+            <strong>Suggested answer:</strong>
+            <p>${q.answer}</p>
+          </div>
+          <div class="curriculum-ref">📚 ${q.outcome}</div>
+          ${q.hasError ? `<div class="made-up-label">${q.errorNote}</div>` : ''}
+          <div class="action-buttons" id="actions-${q.id}">
+            <button class="btn-keep" onclick="decide(${q.id}, 'keep')">Keep</button>
+            <button class="btn-edit" onclick="decide(${q.id}, 'edit')">Edit</button>
+            <button class="btn-reject" onclick="decide(${q.id}, 'reject')">Reject</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function decide(questionId, decision) {
+      decisions[questionId] = decision;
+
+      const card = document.getElementById(`card-${questionId}`);
+      const actions = document.getElementById(`actions-${questionId}`);
+
+      card.classList.remove('decided-keep', 'decided-reject');
+
+      if (decision === 'keep') {
+        card.classList.add('decided-keep');
+        actions.innerHTML = `<div class="decision-made kept">✓ Kept</div>`;
+      } else if (decision === 'reject') {
+        card.classList.add('decided-reject');
+        actions.innerHTML = `<div class="decision-made rejected">✗ Rejected</div>`;
+      } else if (decision === 'edit') {
+        actions.innerHTML = `<div class="decision-made" style="color: #d97706;">✎ Will edit (prototype only shows decision)</div>`;
+      }
+
+      updateSummary();
+    }
+
+    function updateSummary() {
+      const total = sampleQuestions.cells.length;
+      const kept = Object.values(decisions).filter(d => d === 'keep').length;
+      const edited = Object.values(decisions).filter(d => d === 'edit').length;
+      const rejected = Object.values(decisions).filter(d => d === 'reject').length;
+      const pending = total - kept - edited - rejected;
+
+      if (pending === 0) {
+        summaryBox.classList.remove('hidden');
+        const retentionRate = Math.round(((kept + edited) / total) * 100);
+        summaryStats.innerHTML = `
+          <p><strong>Kept:</strong> ${kept} · <strong>Will edit:</strong> ${edited} · <strong>Rejected:</strong> ${rejected}</p>
+          <p><strong>Retention rate:</strong> ${retentionRate}% (${kept + edited} of ${total} questions)</p>
+          <p class="made-up-label">This measures whether AI-generated questions are a useful starting point.</p>
+        `;
+      } else {
+        summaryBox.classList.add('hidden');
+      }
+    }
   </script>
 </body>
 </html>
