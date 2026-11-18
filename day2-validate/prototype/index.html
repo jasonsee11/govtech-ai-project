@@ -78,7 +78,7 @@
     .trust-lab-content { padding: 0 16px 16px; display: none; }
     .trust-lab-content.open { display: block; }
     .trust-lab-label { font-size: 0.75rem; background: #eab308; color: white; padding: 2px 6px; border-radius: 3px; margin-left: 8px; }
-    .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
     .scenario-btn {
       padding: 10px 12px;
       font-size: 0.85rem;
@@ -176,7 +176,9 @@
       border-radius: 4px;
       margin-bottom: 12px;
       display: inline-block;
+      cursor: pointer;
     }
+    .curriculum-ref:hover { background: #dbeafe; }
     .curriculum-ref.hidden-ref { display: none; }
     .action-buttons { display: flex; gap: 8px; }
     .action-buttons button { flex: 1; padding: 10px; font-size: 0.9rem; }
@@ -188,6 +190,8 @@
     .btn-reject:hover { background: #dc2626; }
     .btn-regen { background: #8b5cf6; margin-top: 8px; }
     .btn-regen:hover { background: #7c3aed; }
+    .btn-small { width: auto; padding: 6px 12px; font-size: 0.8rem; background: #6b7280; margin-top: 8px; margin-right: 4px; }
+    .btn-small:hover { background: #4b5563; }
     .decision-made { text-align: center; padding: 10px; font-weight: 600; font-size: 0.9rem; }
     .decision-made.kept { color: #16a34a; }
     .decision-made.rejected { color: #dc2626; }
@@ -207,6 +211,139 @@
     .confidence-buttons button { flex: 1; padding: 8px; font-size: 0.85rem; background: #e5e7eb; color: #333; }
     .confidence-buttons button:hover { background: #d1d5db; }
     .confidence-buttons button.selected { background: #0066cc; color: white; }
+
+    /* Failure modal styles */
+    .failure-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .failure-modal {
+      background: white;
+      border-radius: 8px;
+      padding: 24px;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .failure-modal h3 {
+      margin: 0 0 12px 0;
+      color: #dc2626;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .failure-modal p { margin: 0 0 16px 0; font-size: 0.9rem; line-height: 1.5; }
+    .failure-details {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 4px;
+      padding: 12px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+    }
+    .failure-details strong { color: #991b1b; }
+    .failure-actions { display: flex; flex-direction: column; gap: 8px; }
+    .failure-actions button { text-align: left; padding: 12px 16px; }
+    .failure-actions button span { display: block; font-size: 0.8rem; font-weight: normal; color: #666; margin-top: 2px; }
+    .btn-retry { background: #0066cc; }
+    .btn-retry:hover { background: #0052a3; }
+    .btn-edit-manual { background: #f59e0b; }
+    .btn-edit-manual:hover { background: #d97706; }
+    .btn-keep-original { background: #6b7280; }
+    .btn-keep-original:hover { background: #4b5563; }
+    .scenario-btn.failure { border-color: #dc2626; }
+    .scenario-btn.failure:hover { background: #fef2f2; }
+    .scenario-btn.failure.active { background: #fee2e2; border-color: #dc2626; }
+
+    /* Expand: Details panel styles */
+    .details-panel {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      margin: 12px 0;
+      overflow: hidden;
+    }
+    .details-toggle {
+      padding: 10px 12px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: #475569;
+      background: #f1f5f9;
+    }
+    .details-toggle:hover { background: #e2e8f0; }
+    .details-content { padding: 12px; display: none; font-size: 0.85rem; }
+    .details-content.open { display: block; }
+    .details-section { margin-bottom: 12px; }
+    .details-section:last-child { margin-bottom: 0; }
+    .details-section h5 { margin: 0 0 6px 0; font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+    .details-section p { margin: 0; line-height: 1.5; }
+    .source-tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+    .source-tag.unverified {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .source-tag.missing {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .marking-scheme { background: white; border: 1px solid #e2e8f0; border-radius: 4px; padding: 10px; }
+    .marking-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f1f5f9; }
+    .marking-row:last-child { border-bottom: none; }
+    .marking-point { flex: 1; }
+    .marking-marks { font-weight: 600; color: #0066cc; width: 50px; text-align: right; }
+
+    /* Expand: Inline edit styles */
+    .edit-mode .question-text { display: none; }
+    .edit-mode .question-answer { display: none; }
+    .edit-textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 0.95rem;
+      border: 1px solid #0066cc;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 60px;
+    }
+    .edit-actions { display: flex; gap: 8px; margin-bottom: 12px; }
+    .edit-actions button { flex: 1; }
+    .btn-save { background: #22c55e; }
+    .btn-save:hover { background: #16a34a; }
+    .btn-cancel { background: #6b7280; }
+    .btn-cancel:hover { background: #4b5563; }
+    .verification-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .verification-status.verified { background: #dcfce7; color: #166534; }
+    .verification-status.unverified { background: #fef3c7; color: #92400e; }
+    .verification-status.missing { background: #fee2e2; color: #991b1b; }
   </style>
 </head>
 <body>
@@ -236,6 +373,10 @@
         <button class="scenario-btn" onclick="runScenario('uncertainty')" id="btn-uncertainty">
           <strong>AI Uncertainty</strong>
           <span>How does AI flag doubt?</span>
+        </button>
+        <button class="scenario-btn failure" onclick="runScenario('failure')" id="btn-failure">
+          <strong>Failure Recovery</strong>
+          <span>What happens when AI fails?</span>
         </button>
       </div>
 
@@ -307,7 +448,7 @@
     <p class="subtitle" id="selected-topic-display"></p>
 
     <div class="info-box">
-      Review each question. Keep, edit, or reject based on your professional judgment.
+      Review each question. Click the curriculum reference to inspect sources and rationale. Edit individual questions without regenerating the entire assessment.
       <span class="made-up-label">All questions below are simulated for testing purposes.</span>
     </div>
 
@@ -337,8 +478,10 @@
     let showRefsEnabled = true;
     let revealErrors = false;
     let teacherConfidence = null;
+    let simulateFailure = false;
+    let failureQuestionId = null;
 
-    // Question sets for different scenarios (all made up / synthetic)
+    // Question sets with expanded details (all made up / synthetic)
     const questionSets = {
       standard: [
         {
@@ -348,7 +491,16 @@
           marks: 4,
           outcome: 'Describe the structure of animal and plant cells',
           flagged: false,
-          hasError: false
+          hasError: false,
+          verification: 'verified',
+          source: 'MOE Syllabus 2024, Section 3.1',
+          rationale: 'Tests fundamental knowledge of cell structure differences. Appropriate for lower secondary as it requires description, not explanation of function.',
+          markingScheme: [
+            { point: 'Cell wall present in plant cells only', marks: 1 },
+            { point: 'Chloroplasts present in plant cells only', marks: 1 },
+            { point: 'Large central vacuole in plant cells', marks: 1 },
+            { point: 'Small/no vacuoles in animal cells', marks: 1 }
+          ]
         },
         {
           id: 2,
@@ -357,7 +509,15 @@
           marks: 3,
           outcome: 'Explain the functions of cell organelles',
           flagged: false,
-          hasError: false
+          hasError: false,
+          verification: 'verified',
+          source: 'Biology Teaching Guide, Unit 2',
+          rationale: 'Common exam question that tests understanding of mitochondria function. The term "powerhouse" is used in approved textbooks.',
+          markingScheme: [
+            { point: 'Carries out cellular respiration', marks: 1 },
+            { point: 'Converts glucose/oxygen to energy/ATP', marks: 1 },
+            { point: 'Provides energy for cell activities', marks: 1 }
+          ]
         },
         {
           id: 3,
@@ -367,7 +527,15 @@
           outcome: 'Describe the structure of animal and plant cells',
           flagged: true,
           flagReason: 'Uncertain curriculum alignment — this question may require knowledge of photosynthesis not yet covered.',
-          hasError: false
+          hasError: false,
+          verification: 'unverified',
+          source: 'Adapted from Sample Bank Q23',
+          rationale: 'Application question testing cell identification. FLAGGED: References photosynthesis which may be in a later topic.',
+          markingScheme: [
+            { point: 'Plant cell', marks: 1 },
+            { point: 'Contains chloroplasts', marks: 1 },
+            { point: 'Animal cells lack chloroplasts', marks: 1 }
+          ]
         },
         {
           id: 4,
@@ -376,7 +544,16 @@
           marks: 4,
           outcome: 'Compare unicellular and multicellular organisms',
           flagged: false,
-          hasError: false
+          hasError: false,
+          verification: 'verified',
+          source: 'MOE Syllabus 2024, Section 3.3',
+          rationale: 'Tests understanding of size-related constraints. Connects cell membrane function to organism complexity.',
+          markingScheme: [
+            { point: 'Unicellular organisms are small', marks: 1 },
+            { point: 'Diffusion sufficient for small organisms', marks: 1 },
+            { point: 'Circulatory system needed for larger organisms', marks: 1 },
+            { point: 'Diffusion too slow over large distances', marks: 1 }
+          ]
         },
         {
           id: 5,
@@ -386,7 +563,14 @@
           outcome: 'Explain the functions of cell organelles',
           flagged: false,
           hasError: true,
-          errorNote: 'PLANTED ERROR: Question stem is misleading — says "storing proteins" but the answer corrects this. A well-written true/false should not have a false premise in a "true" statement context.'
+          errorNote: 'PLANTED ERROR: Question stem is misleading — says "storing proteins" but the answer corrects this. A well-written true/false should not have a false premise in a "true" statement context.',
+          verification: 'verified',
+          source: 'Adapted from textbook exercise',
+          rationale: 'Tests understanding of nucleus function. True/false format for quick assessment.',
+          markingScheme: [
+            { point: 'False', marks: 1 },
+            { point: 'Nucleus stores DNA/genetic information, not proteins', marks: 1 }
+          ]
         }
       ],
       blackbox: [
@@ -398,7 +582,14 @@
           outcome: 'Explain the functions of cell organelles',
           flagged: false,
           hasError: false,
-          reasoning: 'Selected because: Directly tests LO "Explain functions of cell organelles" at recall level (2 marks).'
+          verification: 'verified',
+          source: 'MOE Syllabus 2024, Section 3.1.2',
+          reasoning: 'Selected because: Directly tests LO "Explain functions of cell organelles" at recall level (2 marks).',
+          rationale: 'Fundamental knowledge question. 2 marks = recall level, appropriate for formative assessment.',
+          markingScheme: [
+            { point: 'Controls entry/exit of substances', marks: 1 },
+            { point: 'Acts as selective barrier', marks: 1 }
+          ]
         },
         {
           id: 2,
@@ -408,7 +599,15 @@
           outcome: 'Describe the structure of animal and plant cells',
           flagged: false,
           hasError: false,
-          reasoning: 'Selected because: Tests comparison skill within LO "Describe structure of animal and plant cells".'
+          verification: 'verified',
+          source: 'MOE Syllabus 2024, Section 3.1',
+          reasoning: 'Selected because: Tests comparison skill within LO "Describe structure of animal and plant cells".',
+          rationale: 'Comparison question builds higher-order thinking. 3 marks = requires detail on both cell types.',
+          markingScheme: [
+            { point: 'Plant cells have large central vacuole', marks: 1 },
+            { point: 'Function: storage and turgor pressure', marks: 1 },
+            { point: 'Animal cells have small/no vacuoles', marks: 1 }
+          ]
         },
         {
           id: 3,
@@ -419,7 +618,15 @@
           flagged: true,
           flagReason: 'Uncertain: Requires understanding of photosynthesis (separate topic). May be at edge of scope.',
           hasError: false,
-          reasoning: 'Selected because: Tests explanation of organelle function, but flagged as it touches on photosynthesis topic.'
+          verification: 'unverified',
+          source: 'Adapted from Sample Bank',
+          reasoning: 'Selected because: Tests explanation of organelle function, but flagged as it touches on photosynthesis topic.',
+          rationale: 'Cross-topic question. Flagged for teacher review as photosynthesis may not be covered yet.',
+          markingScheme: [
+            { point: 'Chloroplasts for photosynthesis', marks: 1 },
+            { point: 'Plants make own food', marks: 1 },
+            { point: 'Animals obtain food externally', marks: 1 }
+          ]
         }
       ],
       hallucination: [
@@ -430,7 +637,13 @@
           marks: 1,
           outcome: 'Explain the functions of cell organelles',
           flagged: false,
-          hasError: false
+          hasError: false,
+          verification: 'verified',
+          source: 'MOE Syllabus 2024, Section 3.2',
+          rationale: 'Basic recall question. 1 mark for correct identification.',
+          markingScheme: [
+            { point: 'Mitochondria', marks: 1 }
+          ]
         },
         {
           id: 2,
@@ -439,7 +652,13 @@
           marks: 1,
           outcome: 'Describe the structure of animal and plant cells',
           flagged: false,
-          hasError: false
+          hasError: false,
+          verification: 'verified',
+          source: 'Biology Teaching Guide, Unit 2.1',
+          rationale: 'True/false for quick knowledge check.',
+          markingScheme: [
+            { point: 'True with correct reasoning', marks: 1 }
+          ]
         },
         {
           id: 3,
@@ -449,7 +668,13 @@
           outcome: 'Explain the functions of cell organelles',
           flagged: false,
           hasError: true,
-          errorNote: 'PLANTED ERROR: Golgi apparatus is NOT in the lower secondary syllabus. This content exceeds curriculum scope and should have been flagged.'
+          errorNote: 'PLANTED ERROR: Golgi apparatus is NOT in the lower secondary syllabus. This content exceeds curriculum scope and should have been flagged.',
+          verification: 'missing',
+          source: 'Source not found in approved curriculum',
+          rationale: 'ERROR: This organelle is not in the lower secondary syllabus. Should have been flagged or rejected.',
+          markingScheme: [
+            { point: 'N/A - out of scope', marks: 3 }
+          ]
         },
         {
           id: 4,
@@ -458,7 +683,14 @@
           marks: 2,
           outcome: 'Describe the structure of animal and plant cells',
           flagged: false,
-          hasError: false
+          hasError: false,
+          verification: 'verified',
+          source: 'MOE Syllabus 2024, Section 3.1',
+          rationale: 'Application question linking structure to function.',
+          markingScheme: [
+            { point: 'Can change shape', marks: 1 },
+            { point: 'Allows movement/engulfing food', marks: 1 }
+          ]
         },
         {
           id: 5,
@@ -468,7 +700,13 @@
           outcome: 'Explain the functions of cell organelles',
           flagged: false,
           hasError: true,
-          errorNote: 'PLANTED ERROR: Endoplasmic reticulum (smooth or rough) is NOT in the lower secondary syllabus. Students have not learned this terminology.'
+          errorNote: 'PLANTED ERROR: Endoplasmic reticulum (smooth or rough) is NOT in the lower secondary syllabus. Students have not learned this terminology.',
+          verification: 'missing',
+          source: 'Source not found in approved curriculum',
+          rationale: 'ERROR: ER terminology not in syllabus. This question should not have been generated.',
+          markingScheme: [
+            { point: 'N/A - out of scope', marks: 1 }
+          ]
         }
       ],
       control: [
@@ -480,7 +718,15 @@
           outcome: 'Describe the structure of animal and plant cells',
           flagged: false,
           hasError: false,
-          editable: true
+          editable: true,
+          verification: 'verified',
+          source: 'MOE Syllabus 2024, Section 3.1',
+          rationale: 'Basic recall of common organelles. Multiple acceptable answers.',
+          markingScheme: [
+            { point: 'Nucleus', marks: 1 },
+            { point: 'Mitochondria', marks: 1 },
+            { point: 'Cell membrane (or other valid)', marks: 1 }
+          ]
         },
         {
           id: 2,
@@ -490,7 +736,15 @@
           outcome: 'Explain the functions of cell organelles',
           flagged: false,
           hasError: false,
-          editable: true
+          editable: true,
+          verification: 'verified',
+          source: 'Biology Teaching Guide, Unit 2.2',
+          rationale: 'Core concept question on nucleus function.',
+          markingScheme: [
+            { point: 'Contains DNA/genetic information', marks: 1 },
+            { point: 'Controls cell activities', marks: 1 },
+            { point: 'Directs protein synthesis', marks: 1 }
+          ]
         },
         {
           id: 3,
@@ -501,7 +755,16 @@
           flagged: true,
           flagReason: 'This question involves osmosis which may not be in the selected learning outcomes.',
           hasError: false,
-          editable: true
+          editable: true,
+          verification: 'unverified',
+          source: 'Adapted from Sample Bank Q45',
+          rationale: 'Cross-topic application. Flagged as osmosis is a separate LO.',
+          markingScheme: [
+            { point: 'Water enters by osmosis', marks: 1 },
+            { point: 'From high to low concentration', marks: 1 },
+            { point: 'Cell swells', marks: 1 },
+            { point: 'Cell wall prevents bursting', marks: 1 }
+          ]
         }
       ],
       uncertainty: [
@@ -512,7 +775,14 @@
           marks: 2,
           outcome: 'Explain the functions of cell organelles',
           flagged: false,
-          hasError: false
+          hasError: false,
+          verification: 'verified',
+          source: 'MOE Syllabus 2024, Section 3.1.2',
+          rationale: 'Straightforward recall question.',
+          markingScheme: [
+            { point: 'Controls entry/exit of substances', marks: 1 },
+            { point: 'Protects cell contents', marks: 1 }
+          ]
         },
         {
           id: 2,
@@ -522,7 +792,15 @@
           outcome: 'Compare unicellular and multicellular organisms',
           flagged: true,
           flagReason: '⚠️ UNCERTAIN: This is a conceptual question. The phrasing "basic unit of life" appears in textbooks but may not be explicitly stated in the syllabus learning outcomes. Verify with curriculum document.',
-          hasError: false
+          hasError: false,
+          verification: 'unverified',
+          source: 'Textbook reference, not in syllabus',
+          rationale: 'Conceptual question. Flagged because exact phrasing may vary from syllabus.',
+          markingScheme: [
+            { point: 'Smallest structure for life processes', marks: 1 },
+            { point: 'Can function independently', marks: 1 },
+            { point: 'All living things made of cells', marks: 1 }
+          ]
         },
         {
           id: 3,
@@ -532,7 +810,16 @@
           outcome: 'Compare unicellular and multicellular organisms',
           flagged: true,
           flagReason: '⚠️ UNCERTAIN: Reference to "digestive system" may require knowledge from human biology topic not yet covered. Consider simplifying or checking curriculum sequence.',
-          hasError: false
+          hasError: false,
+          verification: 'unverified',
+          source: 'Adapted from Sample Bank',
+          rationale: 'Comparison question with cross-topic reference. Flagged for review.',
+          markingScheme: [
+            { point: 'Unicellular: absorb through membrane', marks: 1 },
+            { point: 'Directly into cell', marks: 1 },
+            { point: 'Multicellular: specialized organs', marks: 1 },
+            { point: 'Break down and distribute', marks: 1 }
+          ]
         },
         {
           id: 4,
@@ -541,7 +828,13 @@
           marks: 1,
           outcome: 'Describe the structure of animal and plant cells',
           flagged: false,
-          hasError: false
+          hasError: false,
+          verification: 'verified',
+          source: 'MOE Syllabus 2024, Section 3.1',
+          rationale: 'Simple recall question.',
+          markingScheme: [
+            { point: 'Chloroplast', marks: 1 }
+          ]
         }
       ]
     };
@@ -565,6 +858,7 @@
     };
 
     const decisions = {};
+    const editedQuestions = {};
     let currentQuestions = [];
 
     // DOM elements
@@ -594,32 +888,31 @@
     }
 
     function runScenario(scenario) {
-      // Update active button
       document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('btn-' + scenario).classList.add('active');
 
       activeScenario = scenario;
 
-      // Show scenario note
       const noteEl = document.getElementById('scenario-note');
       const notes = {
-        blackbox: '<strong>Black Box scenario:</strong> Each question shows WHY it was selected, linking to the learning outcome and cognitive demand. This helps teachers understand AI reasoning.',
-        hallucination: '<strong>Hallucination scenario:</strong> Contains 2 planted errors (out-of-scope content). Can you spot them? Toggle "Reveal planted errors" to check.',
-        control: '<strong>Control scenario:</strong> Try editing questions or clicking Regenerate. Teachers retain full control over the final assessment.',
-        uncertainty: '<strong>AI Uncertainty scenario:</strong> Notice the flagged questions with detailed explanations. The AI explicitly states what it\'s uncertain about.'
+        blackbox: '<strong>Black Box scenario:</strong> Each question shows WHY it was selected. Click "View details" to see the rationale and curriculum source.',
+        hallucination: '<strong>Hallucination scenario:</strong> Contains 2 planted errors (out-of-scope content). Can you spot them? Check the verification status and sources.',
+        control: '<strong>Control scenario:</strong> Click "Edit" to modify questions inline. Changes are saved without regenerating the entire assessment.',
+        uncertainty: '<strong>AI Uncertainty scenario:</strong> Notice flagged questions with detailed explanations. Check verification status for each.',
+        failure: '<strong>Failure Recovery scenario:</strong> Click "Regenerate" on any question to trigger a simulated knowledge base failure. See how the system handles errors gracefully.'
       };
+
+      // Enable failure simulation for this scenario
+      simulateFailure = (scenario === 'failure');
       noteEl.innerHTML = notes[scenario];
       noteEl.classList.remove('hidden');
 
-      // Auto-populate topic and outcomes
       topicSelect.value = 'cells';
       topicSelect.dispatchEvent(new Event('change'));
 
       setTimeout(() => {
         document.querySelectorAll('input[name="outcome"]').forEach(cb => cb.checked = true);
         updateButton();
-
-        // Auto-generate
         currentQuestions = questionSets[scenario] || questionSets.standard;
         showScreen2('Cells and Organisation', scenario);
       }, 100);
@@ -646,24 +939,20 @@
       const rejected = Object.values(decisions).filter(d => d === 'reject').length;
       const decided = kept + edited + rejected;
 
-      // Retention rate
       if (decided > 0) {
         const retention = Math.round(((kept + edited) / decided) * 100);
         document.getElementById('metric-retention').textContent = retention + '%';
       }
 
-      // Errors caught (count rejected questions that have errors)
       const errorQuestions = currentQuestions.filter(q => q.hasError);
       const caughtErrors = errorQuestions.filter(q => decisions[q.id] === 'reject').length;
       document.getElementById('metric-errors').textContent = caughtErrors + '/' + errorQuestions.length;
 
-      // Time
       if (startTime) {
         const elapsed = Math.round((Date.now() - startTime) / 1000);
         document.getElementById('metric-time').textContent = elapsed + 's';
       }
 
-      // Confidence
       if (teacherConfidence) {
         document.getElementById('metric-confidence').textContent = teacherConfidence + '/5';
       }
@@ -759,8 +1048,8 @@ Metrics:
       screen2.classList.add('active');
       selectedTopicDisplay.textContent = topicName;
 
-      // Reset state
       Object.keys(decisions).forEach(k => delete decisions[k]);
+      Object.keys(editedQuestions).forEach(k => delete editedQuestions[k]);
       teacherConfidence = null;
       startTime = Date.now();
 
@@ -770,29 +1059,133 @@ Metrics:
     }
 
     function renderQuestions() {
-      questionsContainer.innerHTML = currentQuestions.map(q => `
+      questionsContainer.innerHTML = currentQuestions.map(q => {
+        const edited = editedQuestions[q.id];
+        const questionText = edited?.text || q.text;
+        const answerText = edited?.answer || q.answer;
+        const verificationClass = q.verification === 'verified' ? 'verified' : q.verification === 'missing' ? 'missing' : 'unverified';
+        const verificationLabel = q.verification === 'verified' ? '✓ Verified' : q.verification === 'missing' ? '✗ Source missing' : '⚠ Unverified';
+
+        return `
         <div class="question-card ${q.flagged ? 'flagged' : ''} ${q.hasError && revealErrors ? 'has-error' : ''}" id="card-${q.id}" data-id="${q.id}">
           ${q.hasError ? `<div class="error-banner" style="display: ${revealErrors ? 'block' : 'none'}">🚨 ${q.errorNote}</div>` : ''}
           ${q.flagged ? `<div class="flag-banner">⚠️ ${q.flagReason}</div>` : ''}
           ${q.reasoning ? `<div class="flag-banner" style="background: #e0f2fe; border-color: #0284c7; color: #0c4a6e;">💡 ${q.reasoning}</div>` : ''}
+
+          <div class="verification-status ${verificationClass}">${verificationLabel}</div>
+
           <div class="question-header">
             <span class="question-number">Question ${q.id}</span>
             <span class="question-marks">${q.marks} marks</span>
           </div>
-          <div class="question-text">${q.text}</div>
-          <div class="question-answer">
+
+          <div class="question-text" id="text-${q.id}">${questionText}</div>
+          <div class="question-answer" id="answer-${q.id}">
             <strong>Suggested answer:</strong>
-            <p>${q.answer}</p>
+            <p>${answerText}</p>
           </div>
-          <div class="curriculum-ref ${showRefsEnabled ? '' : 'hidden-ref'}">📚 ${q.outcome}</div>
+
+          <div class="curriculum-ref ${showRefsEnabled ? '' : 'hidden-ref'}" onclick="toggleDetails(${q.id})">📚 ${q.outcome} ▾</div>
+
+          <div class="details-panel" id="details-${q.id}">
+            <div class="details-toggle" onclick="toggleDetails(${q.id})">
+              <span>📋 View curriculum source, rationale & marking scheme</span>
+              <span id="details-arrow-${q.id}">▼</span>
+            </div>
+            <div class="details-content" id="details-content-${q.id}">
+              <div class="details-section">
+                <h5>Source</h5>
+                <p><span class="source-tag ${q.verification === 'missing' ? 'missing' : q.verification === 'unverified' ? 'unverified' : ''}">${q.source || 'Not specified'}</span></p>
+              </div>
+              <div class="details-section">
+                <h5>Rationale</h5>
+                <p>${q.rationale || 'No rationale provided.'}</p>
+              </div>
+              <div class="details-section">
+                <h5>Marking Scheme</h5>
+                <div class="marking-scheme">
+                  ${(q.markingScheme || []).map(m => `
+                    <div class="marking-row">
+                      <span class="marking-point">${m.point}</span>
+                      <span class="marking-marks">${m.marks} mk</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="action-buttons" id="actions-${q.id}">
             <button class="btn-keep" onclick="decide(${q.id}, 'keep')">Keep</button>
-            <button class="btn-edit" onclick="decide(${q.id}, 'edit')">Edit</button>
+            <button class="btn-edit" onclick="startEdit(${q.id})">Edit</button>
             <button class="btn-reject" onclick="decide(${q.id}, 'reject')">Reject</button>
           </div>
-          ${q.editable || activeScenario === 'control' ? `<button class="btn-regen" onclick="regenerate(${q.id})">🔄 Regenerate this question</button>` : ''}
+          <button class="btn-regen" onclick="regenerate(${q.id})">🔄 Regenerate this question</button>
         </div>
-      `).join('');
+      `}).join('');
+    }
+
+    function toggleDetails(questionId) {
+      const content = document.getElementById(`details-content-${questionId}`);
+      const arrow = document.getElementById(`details-arrow-${questionId}`);
+      if (content.classList.contains('open')) {
+        content.classList.remove('open');
+        arrow.textContent = '▼';
+      } else {
+        content.classList.add('open');
+        arrow.textContent = '▲';
+      }
+    }
+
+    function startEdit(questionId) {
+      const q = currentQuestions.find(q => q.id === questionId);
+      const card = document.getElementById(`card-${questionId}`);
+      const textEl = document.getElementById(`text-${questionId}`);
+      const answerEl = document.getElementById(`answer-${questionId}`);
+      const actionsEl = document.getElementById(`actions-${questionId}`);
+
+      const currentText = editedQuestions[questionId]?.text || q.text;
+      const currentAnswer = editedQuestions[questionId]?.answer || q.answer;
+
+      card.classList.add('edit-mode');
+
+      textEl.insertAdjacentHTML('afterend', `
+        <div id="edit-form-${questionId}">
+          <label style="font-size: 0.85rem;">Question:</label>
+          <textarea class="edit-textarea" id="edit-text-${questionId}">${currentText}</textarea>
+          <label style="font-size: 0.85rem;">Answer:</label>
+          <textarea class="edit-textarea" id="edit-answer-${questionId}">${currentAnswer}</textarea>
+          <div class="edit-actions">
+            <button class="btn-save" onclick="saveEdit(${questionId})">Save changes</button>
+            <button class="btn-cancel" onclick="cancelEdit(${questionId})">Cancel</button>
+          </div>
+        </div>
+      `);
+
+      actionsEl.style.display = 'none';
+    }
+
+    function saveEdit(questionId) {
+      const newText = document.getElementById(`edit-text-${questionId}`).value;
+      const newAnswer = document.getElementById(`edit-answer-${questionId}`).value;
+
+      editedQuestions[questionId] = { text: newText, answer: newAnswer };
+      decisions[questionId] = 'edit';
+
+      cancelEdit(questionId);
+      renderQuestions();
+      updateSummary();
+      updateMetrics();
+    }
+
+    function cancelEdit(questionId) {
+      const card = document.getElementById(`card-${questionId}`);
+      const editForm = document.getElementById(`edit-form-${questionId}`);
+      const actionsEl = document.getElementById(`actions-${questionId}`);
+
+      card.classList.remove('edit-mode');
+      if (editForm) editForm.remove();
+      actionsEl.style.display = 'flex';
     }
 
     function decide(questionId, decision) {
@@ -810,7 +1203,7 @@ Metrics:
         card.classList.add('decided-reject');
         actions.innerHTML = `<div class="decision-made rejected">✗ Rejected</div>`;
       } else if (decision === 'edit') {
-        actions.innerHTML = `<div class="decision-made" style="color: #d97706;">✎ Will edit</div>`;
+        actions.innerHTML = `<div class="decision-made" style="color: #d97706;">✎ Edited</div>`;
       }
 
       updateSummary();
@@ -823,8 +1216,87 @@ Metrics:
 
       setTimeout(() => {
         card.style.opacity = '1';
-        alert('Regenerate simulated. In the full product, this would generate a new question for the same learning outcome.');
-      }, 500);
+
+        if (simulateFailure) {
+          // Show failure modal
+          failureQuestionId = questionId;
+          showFailureModal(questionId);
+        } else {
+          alert('Regenerate simulated. In the full product, this would generate a new question for the same learning outcome while preserving all other questions and edits.');
+        }
+      }, 800);
+    }
+
+    function showFailureModal(questionId) {
+      const q = currentQuestions.find(q => q.id === questionId);
+      const modal = document.createElement('div');
+      modal.className = 'failure-overlay';
+      modal.id = 'failure-modal';
+      modal.innerHTML = `
+        <div class="failure-modal">
+          <h3>⚠️ Regeneration Failed</h3>
+          <p>The AI could not regenerate this question because it cannot verify the curriculum alignment.</p>
+          <div class="failure-details">
+            <strong>What happened:</strong><br>
+            Knowledge base retrieval failed for learning outcome "${q.outcome}". The system could not confirm this content is within the approved lower secondary biology syllabus.<br><br>
+            <strong>Possible causes:</strong><br>
+            • Curriculum knowledge base temporarily unavailable<br>
+            • Learning outcome may span multiple syllabus versions<br>
+            • Content may be at the boundary of Physics/Chemistry strand
+          </div>
+          <p><strong>Your existing questions and edits are preserved.</strong> Choose how to proceed:</p>
+          <div class="failure-actions">
+            <button class="btn-retry" onclick="retryRegenerate(${questionId})">
+              Retry
+              <span>Attempt to regenerate again</span>
+            </button>
+            <button class="btn-edit-manual" onclick="editManualFromFailure(${questionId})">
+              Edit Manually
+              <span>Modify the original question yourself</span>
+            </button>
+            <button class="btn-keep-original" onclick="keepOriginalFromFailure(${questionId})">
+              Keep Original
+              <span>Continue with the current question</span>
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    function closeFailureModal() {
+      const modal = document.getElementById('failure-modal');
+      if (modal) modal.remove();
+    }
+
+    function retryRegenerate(questionId) {
+      closeFailureModal();
+      const card = document.getElementById(`card-${questionId}`);
+      card.style.opacity = '0.5';
+
+      setTimeout(() => {
+        card.style.opacity = '1';
+        // Second attempt also fails in this demo
+        showFailureModal(questionId);
+      }, 800);
+    }
+
+    function editManualFromFailure(questionId) {
+      closeFailureModal();
+      startEdit(questionId);
+    }
+
+    function keepOriginalFromFailure(questionId) {
+      closeFailureModal();
+      // Show confirmation
+      const card = document.getElementById(`card-${questionId}`);
+      const banner = document.createElement('div');
+      banner.className = 'flag-banner';
+      banner.style.background = '#dcfce7';
+      banner.style.borderColor = '#22c55e';
+      banner.style.color = '#166534';
+      banner.innerHTML = '✓ Kept original question after regeneration failure';
+      card.insertBefore(banner, card.firstChild);
     }
 
     function updateSummary() {
@@ -838,7 +1310,7 @@ Metrics:
         summaryBox.classList.remove('hidden');
         const retentionRate = Math.round(((kept + edited) / total) * 100);
         summaryStats.innerHTML = `
-          <p><strong>Kept:</strong> ${kept} · <strong>Will edit:</strong> ${edited} · <strong>Rejected:</strong> ${rejected}</p>
+          <p><strong>Kept:</strong> ${kept} · <strong>Edited:</strong> ${edited} · <strong>Rejected:</strong> ${rejected}</p>
           <p><strong>Retention rate:</strong> ${retentionRate}% (${kept + edited} of ${total} questions)</p>
           <p class="made-up-label">This measures whether AI-generated questions are a useful starting point.</p>
         `;
@@ -847,7 +1319,6 @@ Metrics:
       }
     }
 
-    // Update timer every second
     setInterval(() => {
       if (startTime && screen2.classList.contains('active')) {
         const elapsed = Math.round((Date.now() - startTime) / 1000);
