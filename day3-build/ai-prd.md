@@ -1,6 +1,6 @@
 # AI PRD — Biology Assessment Generator
 
-**Status:** Draft  
+**Status:** Approved  
 **Last updated:** 2026-11-19
 
 All data is synthetic.
@@ -81,32 +81,32 @@ The agent generates draft assessment questions for teacher review. It is not an 
 
 ## Permissions
 
-Every action the agent takes, with tier and proposed setting.
+Every action the agent takes, with tier and approved setting.
 
 | Action | Tier | Setting | Notes |
 |--------|------|---------|-------|
-| Search curriculum knowledge base | Read | **Proposed: Auto** | No side effects |
-| Retrieve marking scheme guidelines | Read | **Proposed: Auto** | No side effects |
-| Search sample assessment bank | Read | **Proposed: Auto** | No side effects |
-| Generate question text | Draft | **Proposed: Auto** | Teacher reviews before use |
-| Generate suggested answer | Draft | **Proposed: Auto** | Teacher reviews before use |
-| Generate marking scheme | Draft | **Proposed: Auto** | Teacher reviews before use |
-| Assign verification status | Draft | **Proposed: Auto** | Teacher sees status on review |
-| Flag question as uncertain | Draft | **Proposed: Auto** | Flags are visible, not hidden |
-| Regenerate a single question | Draft | **Proposed: Confirm** | Replaces previous draft |
-| Edit question text | Write | **Proposed: Confirm** | Modifies teacher's working copy |
-| Edit suggested answer | Write | **Proposed: Confirm** | Modifies teacher's working copy |
-| Edit marking scheme | Write | **Proposed: Confirm** | Modifies teacher's working copy |
-| Mark question as Keep | Write | **Proposed: Confirm** | Records teacher decision |
-| Mark question as Reject | Write | **Proposed: Confirm** | Records teacher decision |
-| Save assessment to database | Write | **Proposed: Confirm** | Persists work |
-| Export assessment to Word/PDF | Send | **Proposed: Confirm** | Leaves the system |
-| Share assessment with other teachers | Send | **Proposed: Block** | Reaches other users |
-| Send assessment to students | Send | **Proposed: Block** | Reaches students |
-| Log session metrics | Write | **Proposed: Auto** | For analytics, no PII |
-| Access teacher profile | Read | **Proposed: Auto** | For personalisation |
-| Access student data | Read | **Proposed: Block** | Out of scope |
-| Modify knowledge base | Write | **Proposed: Block** | Curriculum owner only |
+| Search curriculum knowledge base | Read | ** Auto** | No side effects |
+| Retrieve marking scheme guidelines | Read | ** Auto** | No side effects |
+| Search sample assessment bank | Read | ** Auto** | No side effects |
+| Generate question text | Draft | ** Auto** | Teacher reviews before use |
+| Generate suggested answer | Draft | ** Auto** | Teacher reviews before use |
+| Generate marking scheme | Draft | ** Auto** | Teacher reviews before use |
+| Assign verification status | Draft | ** Auto** | Teacher sees status on review |
+| Flag question as uncertain | Draft | ** Auto** | Flags are visible, not hidden |
+| Regenerate a single question | Draft | ** Confirm** | Replaces previous draft |
+| Edit question text | Write | ** Confirm** | Modifies teacher's working copy |
+| Edit suggested answer | Write | ** Confirm** | Modifies teacher's working copy |
+| Edit marking scheme | Write | ** Confirm** | Modifies teacher's working copy |
+| Mark question as Keep | Write | ** Confirm** | Records teacher decision |
+| Mark question as Reject | Write | ** Confirm** | Records teacher decision |
+| Save assessment to database | Write | ** Confirm** | Persists work |
+| Export assessment to Word/PDF | Send | ** Confirm** | Leaves the system |
+| Share assessment with other teachers | Send | ** Block** | Reaches other users |
+| Send assessment to students | Send | ** Block** | Reaches students |
+| Log session metrics | Write | ** Auto** | For analytics, no PII |
+| Access teacher profile | Read | ** Auto** | For personalisation |
+| Access student data | Read | ** Block** | Out of scope |
+| Modify knowledge base | Write | ** Block** | Curriculum owner only |
 
 **Tier definitions:**
 - **Read** — retrieves data, no side effects
