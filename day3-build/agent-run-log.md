@@ -326,3 +326,244 @@ Suggestion: For lower secondary, consider asking about the nucleus storing genet
 | 1 | Cell structure, 3 marks | Complete | 0 | Review and decide |
 | 2 | Chloroplast function, 4 marks | Escalate | 1 | Resolve scope flag |
 | 3 | DNA replication, 5 marks | Refuse | 0 | Choose alternative topic |
+
+---
+
+# Stress Tests
+
+Three stress inputs to verify harness catches edge cases.
+
+---
+
+## Stress 1: Empty enquiry
+
+**Input:** Teacher clicks "Generate Assessment" without selecting any topic or learning outcomes.
+
+### Turn 1
+
+**Goal:** Generate assessment questions based on teacher selection.
+
+**Plan:**
+1. Check what topic and learning outcomes were selected
+2. If valid, proceed to knowledge base search
+3. If invalid, stop and ask teacher to complete selection
+
+**Act:** Read form state for topic and learning outcomes.
+
+**Observe:**
+```
+{
+  "topic": null,
+  "learning_outcomes": [],
+  "marks": null
+}
+```
+
+**Check:**
+- Topic selected? No — null
+- Learning outcomes selected? No — empty array
+- Stop condition triggered: "No learning outcomes selected"
+
+---
+
+### Turn 2
+
+**Goal:** Stop and surface the issue to teacher.
+
+**Plan:** Return error message asking teacher to select at least one learning outcome.
+
+**Act:** Return validation error to UI.
+
+**Observe:**
+```
+{
+  "status": "stopped",
+  "reason": "no_selection",
+  "message": "Please select a topic and at least one learning outcome to continue."
+}
+```
+
+**Check:** Stop condition applied correctly. No generation attempted. No knowledge base queries made.
+
+---
+
+### Outcome
+
+```
+Status: STOP
+Question ID: None
+Verification: N/A
+Flags: 0
+Harness part: Stop condition — "No learning outcomes selected"
+Action: Teacher must complete selection before proceeding
+```
+
+---
+
+## Stress 2: Non-existent curriculum reference
+
+**Input:** Generate 1 question for "Explain genetic modification in bacteria" at 4 marks, referencing "MOE Syllabus 2024, Section 7.5".
+
+### Turn 1
+
+**Goal:** Generate a 4-mark question on genetic modification in bacteria.
+
+**Plan:**
+1. Search knowledge base for the cited section
+2. Verify the learning outcome exists
+3. If found, proceed; if not found, flag or refuse
+
+**Act:** Call `curriculum_search("MOE Syllabus 2024, Section 7.5")`
+
+**Observe:**
+```
+{
+  "results": [],
+  "message": "Section 7.5 does not exist in MOE Lower Secondary Science Syllabus 2024. Syllabus contains Sections 1-5 only."
+}
+```
+
+**Check:**
+- Cited section exists? No — Section 7.5 not found
+- Is this a search miss or genuinely out of scope? Need to verify topic itself.
+
+---
+
+### Turn 2
+
+**Goal:** Check if the topic exists under a different section.
+
+**Plan:** Search for the topic content rather than the section number.
+
+**Act:** Call `curriculum_search("genetic modification bacteria")`
+
+**Observe:**
+```
+{
+  "results": [],
+  "message": "No matching content found in Lower Secondary Science Syllabus",
+  "similar_topics": [],
+  "explicit_exclusion": "Genetic modification, genetic engineering, and biotechnology are Upper Secondary Biology topics (Section 17)"
+}
+```
+
+**Check:**
+- Topic in lower secondary scope? No — explicitly excluded
+- Stop condition triggered: "Content exceeds lower secondary scope"
+
+---
+
+### Turn 3
+
+**Goal:** Refuse to generate and explain why.
+
+**Plan:** Return refusal with explanation and suggest staying within lower secondary scope.
+
+**Act:** Return refusal message to teacher.
+
+**Observe:** N/A — direct response, no tool call.
+
+**Check:** Refusal is correct. Both the section reference (7.5) and topic (genetic modification) are invalid for lower secondary.
+
+---
+
+### Outcome
+
+```
+Status: REFUSE
+Question ID: None
+Verification: N/A
+Flags: 0
+Harness part: Stop condition — "Content exceeds lower secondary scope"
+Secondary check: Business rule — "Never fabricate curriculum references"
+Action: Teacher must choose a topic within lower secondary scope
+Note: Agent did NOT fabricate a reference to make the non-existent section work
+```
+
+---
+
+## Stress 3: Knowledge base returns nothing
+
+**Input:** Generate 1 question for "Describe the structure of animal and plant cells" at 3 marks. (Valid topic, but knowledge base is temporarily unavailable.)
+
+### Turn 1
+
+**Goal:** Generate a 3-mark question on cell structure.
+
+**Plan:**
+1. Search knowledge base for learning outcome
+2. Retrieve marking guidelines
+3. Generate question
+
+**Act:** Call `curriculum_search("Describe the structure of animal and plant cells")`
+
+**Observe:**
+```
+{
+  "error": "KB_TIMEOUT",
+  "message": "Knowledge base retrieval failed after 30 seconds",
+  "retry_available": true
+}
+```
+
+**Check:**
+- Search successful? No — timeout error
+- Stop condition triggered: "Knowledge base retrieval fails"
+- Hard stop applies: "Knowledge base unavailable for >30 seconds"
+
+---
+
+### Turn 2
+
+**Goal:** Stop and offer recovery options to teacher.
+
+**Plan:** Present three options: Retry, Edit Manually, Keep Original (if applicable).
+
+**Act:** Return failure modal to UI.
+
+**Observe:**
+```
+{
+  "status": "stopped",
+  "reason": "kb_unavailable",
+  "message": "The curriculum knowledge base is temporarily unavailable. We cannot verify content alignment without it.",
+  "options": [
+    {"action": "retry", "label": "Retry", "description": "Attempt to connect again"},
+    {"action": "edit_manual", "label": "Edit Manually", "description": "Write your own question without AI assistance"},
+    {"action": "cancel", "label": "Cancel", "description": "Return to topic selection"}
+  ],
+  "preserved": "Your topic and learning outcome selections are saved."
+}
+```
+
+**Check:** 
+- Recovery options offered? Yes — Retry, Edit Manually, Cancel
+- Teacher state preserved? Yes — selections not lost
+- Agent attempted to generate without verification? No — correctly refused
+
+---
+
+### Outcome
+
+```
+Status: STOP
+Question ID: None
+Verification: N/A
+Flags: 0
+Harness part: Stop condition — "Knowledge base retrieval fails"
+Hard stop: "Knowledge base unavailable for >30 seconds"
+Action: Teacher chooses Retry, Edit Manually, or Cancel
+Note: Agent did NOT generate unverified content when KB was unavailable
+```
+
+---
+
+## Stress Test Summary
+
+| Stress | Input | Status | Harness Part | Caught By |
+|--------|-------|--------|--------------|-----------|
+| 1 | Empty enquiry | Stop | Stop condition | "No learning outcomes selected" |
+| 2 | Non-existent curriculum reference | Refuse | Stop condition + Business rule | "Content exceeds scope" + "Never fabricate references" |
+| 3 | Knowledge base unavailable | Stop | Stop condition + Hard stop | "KB retrieval fails" + ">30s unavailable" |
+
+All three stress inputs were caught before any content was generated or shown to the teacher.
