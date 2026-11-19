@@ -227,7 +227,7 @@ Decisions that need to be made before production:
 | Who is the named curriculum owner for quarterly reviews? | CPDD officer, Master Teacher, School HoD | MOE | Before pilot |
 | What is the escalation SLA for curriculum interpretation questions? | 24h, 48h, 1 week | MOE | Before pilot |
 | How do we handle the transition period (old + new syllabus)? | Separate KBs, tagged content, version selector | Product + Eng | Before pilot |
-| What is the minimum confidence threshold for auto-verification? | 0.7, 0.8, 0.9 | Product | Before pilot |
+| What is the minimum confidence threshold for auto-verification? | 0.7, 0.8, 0.9 | Product | Before pilot | Note: agent-control-panel.md assumes 0.7 — update if decision differs |
 | Should teachers see confidence scores or just verified/unverified? | Scores visible, Binary only, Configurable | Product | Before pilot |
 | What happens to rejected questions after 30 days? | Hard delete, Anonymise, Archive | Legal + Eng | Before pilot |
 | Can teachers share assessments with colleagues? | Yes (confirm), No (block), School-only | Product | Before scale |
