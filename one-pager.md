@@ -79,15 +79,35 @@ All data in this document is synthetic.
 
 ## Agent role and guardrails
 
-**Role:** A curriculum-grounded assessment assistant that generates draft questions for teacher review. Not an autonomous decision-maker — teachers retain professional judgment and accountability.
+**Agent bet:** Generate curriculum-aligned biology assessment questions with answers and marking schemes by retrieving from the knowledge base and matching teacher requirements.
+
+**What the agent does:**
+1. Searches curriculum knowledge base for selected learning outcomes
+2. Retrieves mark allocation guidelines for question type
+3. Generates question text, suggested answer, and marking scheme
+4. Verifies alignment with syllabus scope
+5. Flags uncertainties for teacher review
+
+**Rules of engagement:**
+| Level | Scope |
+|-------|-------|
+| Decides alone | Which sources to query, how to phrase questions, when to flag |
+| Proposes and waits | Each question (Keep/Edit/Reject), regeneration, edits |
+| Person reviews | Final assessment, export, flagged questions, scope boundaries |
 
 **Guardrails:**
-- Generate questions only within specified topic and learning outcomes
-- Never introduce concepts from upper secondary or tertiary biology
+- Generate only within specified topic and learning outcomes
+- Never introduce upper secondary or tertiary biology content
 - Never fabricate curriculum references or scientific facts
-- All facts must be accurate at lower secondary level
 - Flag questions where alignment or accuracy is uncertain
-- Require teacher approval before any content is used with students
+- Require teacher approval before any content reaches students
+
+**Stop conditions:**
+- Content exceeds lower secondary scope → refuse and suggest alternative
+- Knowledge base retrieval fails → offer Retry, Edit Manually, or Keep Original
+- Teacher rejects >50% in a session → pause and ask if requirements need adjustment
+
+**What stays human:** Learning outcome selection, Keep/Edit/Reject decisions, final approval, export sign-off. No student sees content the teacher did not explicitly approve.
 
 **Source hierarchy:**
 1. MOE Lower Secondary Science Syllabus — definitive authority
