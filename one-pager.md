@@ -118,22 +118,26 @@ All data in this document is synthetic.
 
 ## Roles and operating model
 
-**Curriculum owner:** Science Curriculum Planning Office, MOE
-- Maintains approved knowledge base
-- Quarterly review of content accuracy
+| Role | Responsibility |
+|------|----------------|
+| Teacher | Selects learning outcomes, reviews content, decides Keep/Edit/Reject, approves final assessment |
+| Head of Department (Science) | Reviews flagged questions, approves assessments for school use, handles school-level escalations |
+| Cluster Science Master Teacher | Resolves curriculum interpretation questions, advises on edge cases |
+| Curriculum Owner (CPDD, MOE) | Maintains knowledge base, quarterly content review, approves scope changes |
+| Product Owner | Defines agent behaviour, approves permissions, owns success metrics |
+| Engineering Lead | Chooses vendor/model, implements agent, owns reliability |
+| System Admin | Manages access, monitors uptime, responds to incidents |
 
-**School-level review:** Head of Department (Science)
-- Reviews flagged questions
-- Approves assessments for use
+**Decision rights:**
 
-**Escalation path:** Cluster Science Master Teacher
-- Resolves curriculum interpretation questions
-- Advises on edge cases
+| Decision | Who decides | Who is consulted | Who is told |
+|----------|-------------|------------------|-------------|
+| Scope | Curriculum Owner | Product Owner, Master Teacher | Engineering Lead, Teachers |
+| Permissions | Product Owner | Curriculum Owner, Engineering Lead | Teachers, System Admin |
+| Go-live | Product Owner | Curriculum Owner, Engineering Lead | Teachers, System Admin |
+| Incident | System Admin (immediate) / Product Owner (policy) | Engineering Lead, Curriculum Owner | Product Owner, Teachers, HoD |
 
-**Teacher:** Retains full accountability
-- Selects learning outcomes and requirements
-- Reviews, edits, approves all generated content
-- Decides what to keep, edit, or reject
+**Escalation path:** Teacher → HoD (Science) → Master Teacher → Curriculum Owner (MOE)
 
 ## Strategy and roadmap
 
