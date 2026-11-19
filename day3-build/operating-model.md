@@ -29,7 +29,7 @@ All data is synthetic.
 | **Permissions** — What actions the agent can take (auto, confirm, block) | Agent config | Product Owner | Curriculum Owner, DPO, Engineering Lead | Teachers, System Admin |
 | **Vendor and model** — Which LLM provider and model version to use | Infrastructure | Engineering Lead | Product Owner, DPO | Curriculum Owner, System Admin |
 | **Go-live** — When to launch to teachers (pilot or scale) | Deployment | Product Owner | Curriculum Owner, Engineering Lead, HoD | Teachers, System Admin |
-| **Incident** — How to respond when agent produces harmful or inaccurate content | Runtime | System Admin (immediate) / Product Owner (policy) | Engineering Lead, Curriculum Owner | Teachers, HoD, DPO |
+| **Incident** — How to respond when agent produces harmful or inaccurate content | Runtime | System Admin (immediate) / Product Owner (policy) | Engineering Lead, Curriculum Owner | Product Owner, Teachers, HoD, DPO |
 | **Retire** — When to sunset the agent or roll back a version | Lifecycle | Product Owner | Curriculum Owner, Engineering Lead | Teachers, System Admin, HoD |
 
 ---
