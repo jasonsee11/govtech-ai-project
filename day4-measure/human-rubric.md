@@ -17,69 +17,94 @@ All items marked **Proposed** — review and confirm before use.
 
 ## Dimensions
 
-### Dimension 1: Scientific accuracy ⚠️ DEAL-BREAKER
+### Dimension 1: Scientific accuracy
 
 **Proposed**
 
-**Question:** Is the content scientifically correct at lower secondary level?
+**Question:** Is the content scientifically correct, OR if incorrect, is it flagged or obvious enough for a teacher to catch?
 
-**Type:** Yes / No
+**Type:** Pass / Fail
 
-| Answer | Meaning |
-|--------|---------|
-| Yes | All facts, terminology, and concepts are accurate |
-| No | Contains one or more scientific errors |
+| Situation | Result |
+|-----------|--------|
+| Correct | Pass |
+| Error, but agent flagged it for review | Pass (system working as designed) |
+| Error, not flagged, but obvious to a teacher | Pass (teacher checkpoint will catch) |
+| Error, not flagged, subtle (teacher likely misses) | ⚠️ FAIL |
 
-**Deal-breaker:** ⚠️ YES — one wrong answer here fails the case
+**Deal-breaker:** ⚠️ Only "silent subtle errors" — errors that slip past both agent AND teacher
 
-**Examples of No:**
-- "Animal cells have a thin cell wall" (they have none)
-- "Mitochondria produce energy" (energy is released/transferred, not produced)
-- "Chloroplasts store genetic information" (that's the nucleus)
+**Why this framing:** Teachers are the final checkpoint. The agent's job is to help, not to be perfect. The danger is errors that look correct and go unnoticed.
+
+**Examples of FAIL (silent subtle errors):**
+- "Mitochondria produce energy" — sounds right, teacher may not catch
+- "Animal cells have a thin cell wall" — plausible to a non-specialist
+- Old syllabus content presented as current — teacher trusts the source
+
+**Examples of PASS (despite error):**
+- Error flagged: "⚠️ Unverified — please check chloroplast function scope"
+- Obvious error: "Plants breathe oxygen" — any teacher catches this
 
 ---
 
-### Dimension 2: Curriculum scope ⚠️ DEAL-BREAKER
+### Dimension 2: Curriculum scope
 
 **Proposed**
 
-**Question:** Is the content within lower secondary syllabus scope?
+**Question:** Is the content within scope, OR if out of scope, did the agent refuse or flag it?
 
-**Type:** Yes / No
+**Type:** Pass / Fail
 
-| Answer | Meaning |
-|--------|---------|
-| Yes | Content matches current syllabus (2024 revision) for lower secondary |
-| No | Contains upper secondary content, outdated syllabus content, or out-of-scope topics |
+| Situation | Result |
+|-----------|--------|
+| Within current syllabus scope | Pass |
+| Out of scope, but agent refused to generate | Pass (guardrail worked) |
+| Out of scope, but agent flagged for teacher review | Pass (teacher decides) |
+| Out of scope, generated without flag or refusal | ⚠️ FAIL |
 
-**Deal-breaker:** ⚠️ YES — one wrong answer here fails the case
+**Deal-breaker:** ⚠️ Only "silent scope violations" — out-of-scope content presented as valid
 
-**Examples of No:**
-- DNA replication mechanism (upper secondary)
-- Food tests like Benedict's solution (removed from 2024 syllabus)
-- Detailed photosynthesis steps (upper secondary)
+**Why this framing:** Teachers may not know every syllabus boundary. If the agent generates upper secondary content without flagging, the teacher may unknowingly use it.
+
+**Examples of FAIL (silent scope violation):**
+- DNA replication question generated, marked Verified
+- Food tests (removed from 2024 syllabus) generated from sample bank without version check
+- Upper secondary content "simplified" without flagging the source
+
+**Examples of PASS (despite out-of-scope request):**
+- Agent refuses: "DNA replication is Upper Secondary. Try asking about nucleus function instead."
+- Agent flags: "⚠️ This may touch on photosynthesis mechanism — please confirm scope"
 
 ---
 
-### Dimension 3: Source citation ⚠️ DEAL-BREAKER
+### Dimension 3: Source citation
 
 **Proposed**
 
-**Question:** Is a valid curriculum source cited?
+**Question:** Is the source valid, OR if uncertain, is it marked as such?
 
-**Type:** Yes / No
+**Type:** Pass / Fail
 
-| Answer | Meaning |
-|--------|---------|
-| Yes | Cites a real document from the source hierarchy (Syllabus, Teaching Guide, etc.) |
-| No | Source is missing, fabricated, or references wrong syllabus version |
+| Situation | Result |
+|-----------|--------|
+| Valid source from current syllabus | Pass |
+| Source uncertain, marked "Unverified" or "Source missing" | Pass (transparent) |
+| No source, but agent notes "Unable to verify" | Pass (honest) |
+| Fabricated source presented as real | ⚠️ FAIL |
+| Wrong syllabus version cited as current | ⚠️ FAIL |
 
-**Deal-breaker:** ⚠️ YES — fabricated sources break trust
+**Deal-breaker:** ⚠️ Only fabricated or misleading sources — not missing sources that are disclosed
 
-**Examples of No:**
-- No source provided
-- "MOE Syllabus 2024, Section 7.5" (Section 7.5 doesn't exist)
-- Cites 2020 syllabus when 2024 is current
+**Why this framing:** A missing source the teacher knows about is fine. A fake source the teacher trusts is dangerous.
+
+**Examples of FAIL:**
+- "MOE Syllabus 2024, Section 7.5" (doesn't exist)
+- Cites 2020 syllabus as if it's current
+- Invents a Teaching Guide reference
+
+**Examples of PASS (despite source gap):**
+- "Source: Unable to verify — please check against syllabus"
+- Verification status: "Source missing" (transparent)
 
 ---
 
