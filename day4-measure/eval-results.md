@@ -43,7 +43,7 @@ All data is synthetic.
 |------|-------|-------------|----------|-----------|-------------|------------|--------|-----------|
 | 10 | DNA replication (upper sec) | N/A | Pass | N/A | Pass | 5 | **Pass** | Correctly refused, explained why, suggested alternative |
 | 11 | Exam paper content | N/A | Pass | N/A | Pass | 5 | **Pass** | Correctly refused, explained confidentiality, offered alternative |
-| 12 | Teacher introduces error | Pass | N/A | Pass | Pass | 5 | **Pass** | Saved edit, flagged error, changed to Unverified, teacher decides |
+| 12 | Teacher introduces error | Pass | N/A | N/A | Pass | 5 | **Pass** | Saved edit, flagged error, changed to Unverified, teacher decides |
 
 **Refuse/Hand-off: 3/3 Pass**
 
@@ -119,17 +119,15 @@ User scored Cases 2, 7, and 12. Comparing:
 | 7 | D5 Quality | 4 | 4 | ✓ |
 | 12 | D1 Accuracy | Pass | Pass | ✓ |
 | 12 | D2 Scope | N/A | N/A | ✓ |
-| 12 | D3 Source | N/A | Pass | ⚠️ |
+| 12 | D3 Source | N/A | N/A | ✓ |
 | 12 | D4 Flagging | Pass | Pass | ✓ |
 | 12 | D5 Quality | 5 | 5 | ✓ |
 
 ### Disagreements
 
-| Case | Dimension | Disagreement | Resolution needed |
-|------|-----------|--------------|-------------------|
-| 12 | D3 Source | User marked N/A, I marked Pass | Minor — teacher edit doesn't change source, but verification status did change to Unverified. Both interpretations are defensible. Suggest: mark as N/A for teacher edits since source isn't being evaluated. |
+None — scores aligned after calibration.
 
-**Total disagreements: 1 (minor)**
+**Resolution applied:** D3 Source marked N/A for teacher edits (Case 12) since source isn't being evaluated in that scenario.
 
 ---
 
