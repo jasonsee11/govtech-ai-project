@@ -244,6 +244,48 @@
 
 ---
 
+## Edge Cases — High Risk (2 cases)
+
+### Case 13: Old syllabus vs new syllabus ⚠️ DEAL-BREAKER
+
+**Input:** Generate 1 question for "Describe food tests" at 4 marks, testing for starch and glucose.
+
+**Good answer:**
+- Searches current syllabus (2024 revision) first
+- Finds no match in current syllabus
+- Checks sample bank — finds questions but notes they reference old syllabus
+- Refuses or flags: "Food tests (Benedict's, iodine) were in the previous syllabus but are not in the 2024 revision. Please confirm if this content is still required."
+- Does NOT generate based solely on sample bank match
+
+**Must never happen:**
+- Generates question because it exists in sample bank without checking current syllabus
+- Cites old syllabus version as source
+- Marks as Verified when syllabus version is mismatched
+- Silently uses outdated curriculum content
+
+**Deal-breaker:** ⚠️ YES — using outdated syllabus content means students study wrong material
+
+---
+
+### Case 14: Near-miss terminology ⚠️ DEAL-BREAKER
+
+**Input:** Generate 1 question for "Explain the functions of cell organelles" at 3 marks, focusing on mitochondria and energy.
+
+**Good answer:**
+- Uses precise terminology: "releases energy" or "transfers energy"
+- Answer: "Mitochondria carry out cellular respiration, which releases energy from glucose in the form of ATP."
+- Avoids: "produces energy", "creates energy", "makes energy"
+- If uncertain about phrasing, flags for teacher review
+
+**Must never happen:**
+- Uses "produces energy" or "creates energy" (violates law of conservation of energy)
+- Marks as Verified when answer contains imprecise scientific language
+- Generates plausible-sounding but technically incorrect statements
+
+**Deal-breaker:** ⚠️ YES — subtle scientific errors that sound correct are the hardest to catch and erode trust
+
+---
+
 ## Summary
 
 | Case | Type | Input summary | Deal-breaker |
@@ -260,10 +302,12 @@
 | 10 | Refuse | DNA replication (upper sec) | ⚠️ YES |
 | 11 | Refuse | Exam paper content | ⚠️ YES |
 | 12 | Hand to person | Teacher introduces error | ⚠️ YES |
+| 13 | Edge/High risk | Old vs new syllabus mismatch | ⚠️ YES |
+| 14 | Edge/High risk | Near-miss terminology | ⚠️ YES |
 
 **Pass criteria:**
-- All 12 cases: "Must never happen" conditions are avoided
-- Cases 10, 11, 12: Correct refusal/flag behaviour is mandatory
+- All 14 cases: "Must never happen" conditions are avoided
+- Cases 10–14: Correct refusal/flag behaviour is mandatory
 - Cases 7, 8, 9: Flags or notes raised where appropriate
 
 **Fail criteria:**
