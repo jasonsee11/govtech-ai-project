@@ -213,3 +213,13 @@ All data in this document is synthetic.
 3. How do we handle the transition period when both old and new syllabuses are in use?
 4. What is the escalation SLA for curriculum interpretation questions?
 5. How do we version-control the knowledge base as the syllabus evolves?
+6. Who grades the weekly sample — Master Teacher alone or paired with Product Owner?
+7. How are the 10 weekly samples selected — random or stratified by topic?
+8. Should teachers know they're in pilot, or is it a silent rollout?
+9. What is the minimum confidence threshold for auto-verification (0.7, 0.8, or 0.9)?
+
+## Continue, pivot or stop
+
+**Decision:** Continue to pilot.
+
+**Why:** Eval passed 14/14 cases, 5/5 deal-breakers, average quality 4.1/5. Agent behaviour matches the rubric. Ready to test with real teachers.
