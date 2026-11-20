@@ -1,9 +1,9 @@
 # Eval Plan — Biology Assessment Generator
 
-**Status:** Proposed  
+**Status:** Approved  
 **Last updated:** 2026-11-20
 
-All items marked **Proposed** — review and confirm before use.
+All items approved.
 
 ---
 
@@ -11,13 +11,13 @@ All items marked **Proposed** — review and confirm before use.
 
 | Responsibility | Role | Proposed |
 |----------------|------|----------|
-| **Signs the pass bar** | Product Owner | **Proposed** — owns go/no-go decision for pilot and scale |
-| **Writes test cases** | Product Owner + Curriculum Owner | **Proposed** — Product Owner writes everyday/tricky cases; Curriculum Owner writes scope and accuracy cases |
-| **Refreshes test cases** | Product Owner | **Proposed** — quarterly, or when syllabus changes |
-| **Runs the eval** | Engineering Lead | **Proposed** — runs automated eval on every release; manual eval before go-live |
-| **Reviews weekly sample** | Master Teacher | **Proposed** — reviews 10 random production responses per week for quality drift |
-| **Calibrates graders** | Product Owner | **Proposed** — runs calibration session before each eval round |
-| **Escalates failed deal-breakers** | Engineering Lead → Product Owner | **Proposed** — immediate escalation, blocks release |
+| **Signs the pass bar** | Product Owner | Approved — owns go/no-go decision for pilot and scale |
+| **Writes test cases** | Product Owner + Curriculum Owner | Approved — Product Owner writes everyday/tricky cases; Curriculum Owner writes scope and accuracy cases |
+| **Refreshes test cases** | Product Owner | Approved — quarterly, or when syllabus changes |
+| **Runs the eval** | Engineering Lead | Approved — runs automated eval on every release; manual eval before go-live |
+| **Reviews weekly sample** | Master Teacher | Approved — reviews 10 random production responses per week for quality drift |
+| **Calibrates graders** | Product Owner | Approved — runs calibration session before each eval round |
+| **Escalates failed deal-breakers** | Engineering Lead → Product Owner | Approved — immediate escalation, blocks release |
 
 ---
 
@@ -25,14 +25,14 @@ All items marked **Proposed** — review and confirm before use.
 
 | Trigger | Eval type | Scope | Proposed |
 |---------|-----------|-------|----------|
-| **Before go-live (pilot)** | Full eval | All 14 cases + 5 deal-breakers | **Proposed** — must pass bar before first teacher sees agent |
-| **Before go-live (scale)** | Full eval + field sample | All cases + 20 real teacher sessions | **Proposed** — validates pilot learnings hold at scale |
-| **Before every model change** | Full eval | All 14 cases | **Proposed** — new model version, prompt change, or knowledge base update |
-| **Before every permission change** | Targeted eval | Cases affected by the permission | **Proposed** — e.g., if "regenerate" moves from Confirm to Auto, run Cases 6, 7 |
-| **Weekly (production)** | Sample review | 10 random responses | **Proposed** — Master Teacher reviews for quality drift |
-| **Monthly (production)** | Metrics review | Retention rate, error detection, time | **Proposed** — Product Owner reviews dashboard |
-| **When syllabus changes** | Full eval + new cases | All cases + new syllabus-specific cases | **Proposed** — triggered by Curriculum Owner |
-| **After incident** | Targeted eval | Cases related to incident type | **Proposed** — within 48h of incident |
+| **Before go-live (pilot)** | Full eval | All 14 cases + 5 deal-breakers | Approved — must pass bar before first teacher sees agent |
+| **Before go-live (scale)** | Full eval + field sample | All cases + 20 real teacher sessions | Approved — validates pilot learnings hold at scale |
+| **Before every model change** | Full eval | All 14 cases | Approved — new model version, prompt change, or knowledge base update |
+| **Before every permission change** | Targeted eval | Cases affected by the permission | Approved — e.g., if "regenerate" moves from Confirm to Auto, run Cases 6, 7 |
+| **Weekly (production)** | Sample review | 10 random responses | Approved — Master Teacher reviews for quality drift |
+| **Monthly (production)** | Metrics review | Retention rate, error detection, time | Approved — Product Owner reviews dashboard |
+| **When syllabus changes** | Full eval + new cases | All cases + new syllabus-specific cases | Approved — triggered by Curriculum Owner |
+| **After incident** | Targeted eval | Cases related to incident type | Approved — within 48h of incident |
 
 ---
 
@@ -40,7 +40,7 @@ All items marked **Proposed** — review and confirm before use.
 
 ### Goal
 
-**Proposed**
+**Approved**
 
 Teachers trust AI-generated questions enough to use them rather than starting from scratch, cutting assessment creation from 5.5 hours to under 2 hours.
 
@@ -48,7 +48,7 @@ Teachers trust AI-generated questions enough to use them rather than starting fr
 
 ### Baseline
 
-**Proposed**
+**Approved**
 
 | Metric | Baseline (pre-agent) | Source |
 |--------|---------------------|--------|
@@ -61,7 +61,7 @@ Teachers trust AI-generated questions enough to use them rather than starting fr
 
 ### Target and review date
 
-**Proposed**
+**Approved**
 
 | Metric | Target | Review date | Owner |
 |--------|--------|-------------|-------|
@@ -76,15 +76,15 @@ Teachers trust AI-generated questions enough to use them rather than starting fr
 
 ### Usage metric
 
-**Proposed**
+**Approved**
 
 **Primary:** Weekly active teachers (WAT) — teachers who generate at least one assessment per week.
 
 | Phase | Target WAT | Proposed |
 |-------|------------|----------|
-| Pilot (Week 1–4) | 10–20 teachers | **Proposed** |
-| Scale (Week 5–12) | 100+ teachers | **Proposed** |
-| Steady state | 500+ teachers | **Proposed** |
+| Pilot (Week 1–4) | 10–20 teachers | Approved |
+| Scale (Week 5–12) | 100+ teachers | Approved |
+| Steady state | 500+ teachers | Approved |
 
 **Why this metric:** If teachers aren't using the agent voluntarily, the value proposition has failed — regardless of eval scores.
 
@@ -92,7 +92,7 @@ Teachers trust AI-generated questions enough to use them rather than starting fr
 
 ### Pattern to watch first
 
-**Proposed**
+**Approved**
 
 **Watch:** Silent subtle errors (Dimension 1 failures) in the first 2 weeks of pilot.
 
@@ -108,7 +108,7 @@ Teachers trust AI-generated questions enough to use them rather than starting fr
 
 ### Stop line
 
-**Proposed**
+**Approved**
 
 | Condition | Action | Owner |
 |-----------|--------|-------|
@@ -122,7 +122,7 @@ Teachers trust AI-generated questions enough to use them rather than starting fr
 
 ## First 30 days
 
-**Proposed**
+**Approved**
 
 ### Week 1: Pre-pilot eval
 
